@@ -380,7 +380,7 @@ body {
 .main-content {
   margin-left: 280px;
   max-width: calc(100vw - 280px);
-  padding: var(--space-2xl) var(--space-3xl) var(--space-3xl);
+  padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
   min-height: 100vh;
 }
 
@@ -445,7 +445,7 @@ p {
 }
 
 .hero-image {
-  width: 80%;
+  width: 60%;
   height: auto;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
@@ -558,7 +558,7 @@ p {
 
 .cv-section {
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
 }
 
 .section-title {
@@ -628,7 +628,7 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -740,7 +740,7 @@ p {
   background: linear-gradient(135deg, var(--accent-blue-subtle) 0%, var(--bg-card) 100%);
   border: 2px solid var(--accent-blue);
   border-radius: var(--radius-xl);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
   position: relative;
   overflow: hidden;
@@ -800,7 +800,7 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -924,7 +924,7 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   height: 100%;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1094,7 +1094,7 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   text-align: center;
 }
 
@@ -1103,8 +1103,8 @@ p {
   flex-wrap: wrap;
   gap: var(--space-sm);
   list-style: none;
-  justify-content: center;
-  margin-top: var(--space-lg);
+  justify-content: left;
+/*  margin-top: var(--space-lg);*/
 }
 
 .contact-list a {
