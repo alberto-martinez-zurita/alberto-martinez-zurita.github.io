@@ -22,7 +22,7 @@ const PORTFOLIO_TITLE = 'Alberto Martínez Zurita - Principal AI Engineer & Goog
   const savedLang = localStorage.getItem(LANG_STORAGE_KEY) || 'es';
   applyLanguage(savedLang);
 
-  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || getSystemTheme();
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
   applyTheme(savedTheme);
 })();
 
