@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ecosistema IA - Actores y Roles</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #181B24;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+        .content-container {
+            position: relative;
+            padding: 80px;
+            z-index: 10;
+            height: 100%;
+        }
+        /* Estilo de título de 11.html */
+        .title-section {
+            display: flex;
+            margin-bottom: 60px;
+        }
+        .accent-bar {
+            width: 8px;
+            background-color: #B165FB;
+            margin-right: 30px;
+            height: 120px; /* Altura original de 11.html */
+        }
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title {
+            font-size: 3.5rem; /* 56px */
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            line-height: 1;
+        }
+        .subtitle {
+            font-size: 3.5rem; /* 56px */
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: #B165FB;
+            line-height: 1;
+        }
+        /* Estilo de contenido de 11.html */
+        .text-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%; /* Ajustado para más contenido */
+            padding-left: 38px; /* Alineado con el título */
+        }
+        .text-column {
+            width: 48%;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #A0AEC0;
+        }
+        .service-title {
+            color: #B165FB;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif; /* Un poco más de énfasis */
+        }
+        .highlight {
+            color: white;
+            font-weight: 600;
+        }
+        /* Decoración de 11.html */
+        .wave-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .company-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #A0AEC0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Decoración de 11.html -->
+<div class="wave-decoration">
+<svg viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<path d="M300,0 Q350,50 400,100 T500,200 T600,300 T700,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M310,0 Q360,50 410,100 T510,200 T610,300 T710,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M320,0 Q370,50 420,100 T520,200 T620,300 T720,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M330,0 Q380,50 430,100 T530,200 T630,300 T730,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M340,0 Q390,50 440,100 T540,200 T640,300 T740,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M350,0 Q400,50 450,100 T550,200 T650,300 T750,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M360,0 Q410,50 460,100 T560,200 T660,300 T760,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M370,0 Q420,50 470,100 T570,200 T670,300 T770,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M380,0 Q430,50 480,100 T580,200 T680,300 T780,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M390,0 Q440,50 490,100 T590,200 T690,300 T790,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M400,0 Q450,50 500,100 T600,200 T700,300 T800,400" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+</svg>
+</div>
+<div class="content-container">
+<!-- Título de 11.html adaptado -->
+<div class="title-section">
+<div class="accent-bar"></div>
+<div class="title-container">
+<div class="title">EL ECOSISTEMA</div>
+<div class="subtitle">ACTORES Y ROLES</div>
+</div>
+</div>
+<!-- Contenido de Punto 5 en 2 columnas -->
+<div class="text-content">
+<div class="text-column">
+<div class="service-title"><i class="fas fa-rocket mr-2"></i> Hiperescaladores (SOTA Cerrado)</div>
+<p>Lideran con los modelos generalistas más potentes. <br/>
+<span class="highlight">Actores:</span> OpenAI (GPT-5), Google (Gemini 2.5 Pro), Anthropic (Claude 4.5).</p>
+<div class="service-title mt-6"><i class="fas fa-lock-open mr-2"></i> Disruptores (Líderes Open-Source)</div>
+<p>Impulsan la IA abierta, permitiendo privacidad y personalización. <br/>
+<span class="highlight">Actores:</span> Meta (Llama 3.3), Mistral AI.</p>
+</div>
+<div class="text-column">
+<div class="service-title"><i class="fas fa-microscope mr-2"></i> Especialistas (Mejores en su Clase)</div>
+<p>Modelos enfocados en una sola tarea con calidad superior. <br/>
+<span class="highlight">Actores:</span> Midjourney (Imágenes), ElevenLabs (Voz), Suno AI (Música).</p>
+<div class="service-title mt-6"><i class="fas fa-server mr-2"></i> Infraestructura ("Las Tuberías")</div>
+<p>Proveen el hardware y la nube para ejecutar todo. <br/>
+<span class="highlight">Actores:</span> NVIDIA (GPUs), AWS, Google Cloud, Microsoft Azure.</p>
+</div>
+</div>
+</div>
+
+</body>
+</html>

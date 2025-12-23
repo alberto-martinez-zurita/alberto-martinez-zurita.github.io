@@ -1,0 +1,45 @@
+Empezamos por como publico en linked-in todo esto? Piensa en el orden estratégico, y en que tengo que comentar con mi compañero como publicarlo. Además el cruso de Kaggle lo propusieron (como opcional) desde el equipo de formación de la IA del trabajo, que dan acceso a cursos de google y preparan el temario. Pero me quiero centrar en como capitalizar esto.
+
+A) Quiero que me ayudes a actualizar y redactar mi currículum. Te voy a dar unas directrices de cosas que he ido haciendo y evidencias para ayudarte a entender mi perfil y trasladarlo al currículum.
+B) este es mi perfil de linkedin => https://es.linkedin.com/in/alberto-martinez-zurita  y la página personal de mi en github https://alberto-martinez-zurita.github.io/, mira a ver si puedes acceder a todo
+
+https://www.credly.com/users/alberto-martinez-zurita  => credly.md
+https://www.skills.google/public_profiles/e08c46a8-d525-4707-8bdb-f60280b85ac0 => google.md
+
+3) Es justo de cuando me cambié de trabajo a deutschebank, luego ya no lo actualicé. En marzo del 2020 me incorporé a deutsche bank como arquitecto en la disciplina de arquitecto de soluciones dentro del departamento de arquitectura. 
+- En estos años mi trabajo ha sido revisar las soluciones propuestas por los equipos para asesorarles en la toma de decisiones de diseño para que las soluciones estén alineadas a los estándares y la estrategia del Banco desdel departamento de arquitectura y en un equipo de 5 personas (perfil AVP - Senior Solutions Architect en Deutsche Bank), pero sin gente a mi cargo. 
+- En el 2024 me pusieron una persona a mi cargo a la que he gestionado y mentorizado.
+- Durante el 2022-2025 he ido haciendo cursos de cloud en google, ver credly.md , certificaciones internas del Banco con contenido de google DB-Cloud Engineer, DevOps, DB-Cloud Architect, DB Cloud Machine Learning, DB Gen AI Developer, ver google.md. 
+
+- Durante el 2023 y 2024 trabajé en una inciativa que genere yo mismo para calcular la deuda técnica de las soluciones informáticas, si no puedes medir algo, no puedes mejorarlo. Durante el primer trimestre del 2025 desarrolle el 'framework CLEAR' que es una evolución del cálculo de la deuda técnica al estado de salud de las aplicaciones, y hay 8 personas del departamento de arquitectura, trabajando en esa inciativa, más 2 más de soporte, en modo agile en la que hago Product Owner y también trabajo en el desarrollo y en la definición, pero principalmente soy el ideologo del modelo y de la aplicacion para visualizar las métricas y el detalle de la información. 
+- En paralelo a mi trabajo en el banco, durante el 2024, dada mi experiencia nivel avanzado en Excel, hice 3 sesiones de formación de Excel de todos los niveles, a unas 500 personas, entre las 3 sesiones, participando en un programa de formacion interna de empleados a empleados de forma voluntaria. 
+- Desde finales del 2024 y durante este año he trabajado en lo que indicaré de la inteligencia artifical, y sobre lo que quiero pivotar mi curriculum
+- He aprovechado el canal de la formación interna para preparar e impartir 3 clases más de inteligencia artificial, la primera "entiende, comprende, aprende" dos veces, y prompt engineering 1 vez (donde cree y explique el "metodo director"), con un impacto de unas 300 personas con los dos primeros cursos de IA repetidos (julio y septiembre) y 350 el último del metodo director (noviembre), personas de oficinas, de servicios centrales y de IT.
+- El método director fue una invención mia basada en estudios de prompt engingeering creando un nombre con un memotécnico que sirviera para reflexionar si el prompt es suficientemente completo.
+- Por mi cuenta, a principios de este año compre un PC y aprendí conocimientos avanzados de IA desde el punto de vista del Open Source, llegando a automatizar la creación de contenidos web, con eleventy, java y lmstudio,en enero-feb-mazo 2025,
+<Proyecto 1: Contenido html con llmstudio y eleventy>
+
+- Aprendiendo todo lo posible con contenido en youtube (estado del arte, open source, conceptos, intuicion), creando unas reflexiones filosóficas y técnicas con gemini que te voy a compartir. 
+<Reflexiones>
+En julio participé en una hackaton dentro del Banco (con un proyecto SAVIA, del que te paso el html de la presentación), la noche sin dormir, de nuevo. 
+<Hackaton 1: proyecto SAVIA>
+En agosto, trabaje con gemini el proyecto de la colmena. 
+<Proyecto 2: Colmena de agentes en python>
+En Agosto y Septiembre hice un curso en udemmy de IAs agénticas (6 semanas, 20 horas de curso) "AI Engineer Agentic Track: The Complete Agent & MCP Course" de Ed Donner, 1.Foundations, 2.Open AI Agentic SDK, 3. Crew AI, 4.Lang Graph, 5. AutoGen, 6. MCP. 
+En septiembre-octubre hice un curso de IAs generativas y Agenticas de google donde aprendí además el framework de google adk. 
+En noviembre hice el curso intensivo de google en kaggle "5-day ai agents intensive course with google" donde hice el capstone y que gané.
+El capstone de google en el que participé hace unas semanas, en noviembre, y presenté el 1 de diciembre.  Finalmente presentamos el 1 de diciembre. En la formación de Google participaron más de un millón y medio de personas. Llevaba quedándome hasta las 3 de la noche trabajando casi cada día durante 2 semanas. Al final la noche del 30 de noviembre al 1 de diciembre me acosté a las 11h de la mañana, porque estuve trabajando toda la noche para acabarlo.
+En los proyectos habían 4 categorías, y se presentaron 11.000 proyectos. En mi categoría se presentaron 4477 proyectos. Era un objetivo realmente ambicioso.
+Pero aun así el capstone lo gané, dijeron en ganador hace 5 dias.
+<Explicación>
+En noviembre desarrolle una flujo avanzado de prompt engineering director_project, del que creé una shell, al aprender de manera más profunda el funcionamiento de los modelos, y estas ideas las apliqué en cierta medida en el proyecto capstone. 
+En diciembre he hecho la tool de generación de videos con fotos y audio y musica, todo en local open source, y recientemente la web para publicarlo todo. 
+Tambien estoy aprendiendo a hacer vibecoding con gemini cli y claude code. 
+<Proyecto 3: generacion de videos automaticos>
+<Proyecto 4: automatizacion de sites>
+
+el proyecto de github https://github.com/alberto-martinez-zurita/chaos-playbook-engine
+
+
+Ayudame a ordenar ideas, agrupar contenido y elaborar un currículum mucho mejor, devuelvemelo en .md para que pueda visualizarlo y completarlo. 
+Teniendo en cuenta todos los activos, piensa en la estrategia para conectarlo todo digitalmente. 

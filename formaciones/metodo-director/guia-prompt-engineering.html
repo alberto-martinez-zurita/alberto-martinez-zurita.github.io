@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Definitiva de Prompt Engineering 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A tabbed single-page application structure was chosen to logically separate the core theoretical guide from the practical, actionable annexes (templates, checklists, JSON resource). This allows users to easily switch between learning concepts and applying them. The main guide uses a vertical sub-navigation, preventing cognitive overload from a long scroll and enabling direct access to specific topics like advanced techniques or ethics. This task-oriented design (Learn vs. Apply) enhances usability for both new learners and experienced practitioners seeking quick references. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Advanced Prompting Techniques Comparison. Goal: Compare complexity vs. effectiveness. Viz/Presentation: Horizontal Bar Chart. Interaction: Tooltips on hover with details. Justification: Provides a quick, quantitative overview to help users decide which technique to apply. Library: Chart.js (Canvas).
+        2. Report Info: Logical flows (CoT, ReAct). Goal: Explain abstract processes. Viz/Presentation: HTML/CSS flow diagrams using styled divs, borders, and flexbox. Interaction: Subtle hover effects. Justification: Visually breaks down abstract processes, improving comprehension without using forbidden SVG/Mermaid.
+        3. Report Info: Code/Prompt Assets (Templates, Checklists, JSON). Goal: Allow easy use of resources. Viz/Presentation: Styled <pre><code> blocks. Interaction: "Copy to Clipboard" button for each asset. Justification: Improves user workflow by making assets directly usable. Library: Vanilla JS for clipboard interaction. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF8;
+            color: #3a3a3a;
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .tab-btn.active {
+            border-color: #3B82F6;
+            background-color: #EFF6FF;
+            color: #1E40AF;
+            font-weight: 600;
+        }
+        .nav-link.active {
+            background-color: #E0E7FF;
+            color: #3730A3;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .code-block {
+            background-color: #F3F4F6;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #111827;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: #D1D5DB;
+            color: #1F2937;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #9CA3AF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Guía Definitiva de Prompt Engineering 2025</h1>
+            <p class="mt-4 text-lg text-gray-600">Una guía interactiva para dominar la comunicación con modelos de IA en texto, imagen, audio y vídeo.</p>
+        </header>
+
+        <nav class="mb-8 border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+                <li class="mr-2">
+                    <button class="tab-btn inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="guia">Guía Principal</button>
+                </li>
+                <li class="mr-2">
+                    <button class="tab-btn" data-tab="plantillas">Anexo 1: Plantillas</button>
+                </li>
+                <li class="mr-2">
+                    <button class="tab-btn" data-tab="checklists">Anexo 2: Checklists</button>
+                </li>
+                <li class="mr-2">
+                    <button class="tab-btn" data-tab="biblioteca">Anexo 3: Biblioteca de Prompts</button>
+                </li>
+                 <li>
+                    <button class="tab-btn" data-tab="json">Anexo 4: Recurso JSON</button>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="guia" class="content-section">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                    <aside class="lg:col-span-3 mb-8 lg:mb-0">
+                        <nav id="guide-nav" class="sticky top-8 space-y-1">
+                           <a href="#definicion" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Definición y Alcance</a>
+                           <a href="#principios" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Principios Universales</a>
+                           <a href="#tecnicas" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Técnicas Avanzadas</a>
+                           <a href="#multimodalidad" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Multimodalidad</a>
+                           <a href="#integracion" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Integración y Herramientas</a>
+                           <a href="#evaluacion" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Evaluación y Mitigación</a>
+                           <a href="#etica" class="nav-link group flex items-center px-3 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">Ética y Seguridad</a>
+                        </nav>
+                    </aside>
+                    <div class="lg:col-span-9 space-y-12">
+                        <section id="definicion">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Definición y Alcance</h2>
+                            <p class="text-gray-700 leading-relaxed">El <strong>Prompt Engineering</strong> es la disciplina de diseñar, refinar y optimizar las entradas (prompts) para guiar a los modelos de inteligencia artificial generativa hacia la obtención de resultados deseados, precisos y seguros. No es simplemente "hacer preguntas", sino una forma de ingeniería de la comunicación que requiere una comprensión profunda del funcionamiento interno del modelo, la tarea a realizar y el contexto operativo.</p>
+                            <p class="mt-4 text-gray-700 leading-relaxed">Su alcance abarca desde la simple formulación de una consulta hasta el diseño de sistemas complejos donde múltiples prompts interactúan entre sí y con herramientas externas (APIs, bases de datos) para resolver problemas de varios pasos. A medida que los modelos crecen en capacidad y multimodalidad, esta disciplina se ha vuelto fundamental para desbloquear su verdadero potencial en entornos de producción, garantizando fiabilidad, control y eficiencia.</p>
+                        </section>
+
+                        <section id="principios">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Principios Universales</h2>
+                            <ul class="list-disc list-inside space-y-3 text-gray-700">
+                                <li><strong>Claridad y Especificidad:</strong> Evita la ambigüedad. Cuanto más preciso sea el prompt, menor será el espacio para interpretaciones no deseadas. En lugar de "Escribe sobre coches", usa "Escribe un resumen de 200 palabras sobre el impacto de los vehículos eléctricos en la industria automotriz europea en la última década".</li>
+                                <li><strong>Contexto Completo:</strong> Proporciona toda la información de fondo necesaria para que el modelo entienda la tarea. Incluye ejemplos (few-shot prompting), definiciones, restricciones y el resultado esperado.</li>
+                                <li><strong>Asignación de Rol (Persona Prompting):</strong> Instruye al modelo para que adopte una personalidad o rol específico. Por ejemplo, "Actúa como un economista senior especializado en mercados emergentes y analiza...". Esto enfoca el estilo, tono y base de conocimiento del modelo.</li>
+                                <li><strong>Instrucciones Explícitas y Formato de Salida:</strong> Define claramente la tarea y el formato de la respuesta. Usa frases como "Extrae los nombres de las entidades en una lista JSON", "Resume el siguiente texto en 3 puntos clave" o "Genera un script de Python que cumpla con estos requisitos".</li>
+                                <li><strong>Delimitadores:</strong> Usa caracteres como ````, `###`, `<>` o XML tags para separar claramente las instrucciones del contenido a procesar. Esto ayuda al modelo a distinguir entre lo que debe hacer y sobre qué debe hacerlo.</li>
+                                <li><strong>Iteración y Refinamiento:</strong> El primer prompt raramente es el mejor. Trata el prompt engineering como un proceso iterativo: prueba, analiza el resultado, identifica fallos y refina el prompt para corregirlos.</li>
+                            </ul>
+                        </section>
+
+                        <section id="tecnicas">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Técnicas Avanzadas</h2>
+                             <p class="text-gray-700 leading-relaxed mb-6">A medida que las tareas se vuelven más complejas, las técnicas avanzadas son cruciales para mejorar el razonamiento, la fiabilidad y la precisión de los modelos. Estas estrategias transforman el prompting de una simple instrucción a un algoritmo de razonamiento guiado.</p>
+                             <div class="chart-container mb-12">
+                                <canvas id="techniquesChart"></canvas>
+                             </div>
+                             <div class="space-y-8">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Chain of Thought (CoT)</h3>
+                                    <p class="text-gray-700 mt-2">Consiste en instruir al modelo para que "piense paso a paso" antes de dar la respuesta final. Esto descompone problemas complejos en partes manejables, mejorando drásticamente el rendimiento en tareas de razonamiento matemático, lógico y de planificación. El modelo externaliza su proceso de pensamiento, lo que también facilita la depuración.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Self-Consistency</h3>
+                                    <p class="text-gray-700 mt-2">Es una mejora sobre CoT. En lugar de generar una única cadena de pensamiento, se generan múltiples cadenas de pensamiento independientes (usando una temperatura > 0) y se elige la respuesta final por consenso (la más frecuente). Esto reduce la probabilidad de errores de razonamiento y aumenta la robustez de la solución.</p>
+                                </div>
+                                 <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Tree of Thoughts (ToT)</h3>
+                                    <p class="text-gray-700 mt-2">Generaliza CoT permitiendo al modelo explorar múltiples caminos de razonamiento (ramas de un árbol) en cada paso. El modelo puede evaluar el progreso en cada rama y decidir cuál continuar, podar o retroceder. Es ideal para problemas que requieren exploración o planificación estratégica, como la resolución de puzles complejos.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">ReAct (Reason and Act)</h3>
+                                    <p class="text-gray-700 mt-2">Combina el razonamiento (como en CoT) con la capacidad de actuar (usando herramientas). El modelo genera un plan de acción, ejecuta una herramienta (ej. una búsqueda web, una consulta a una API), observa el resultado y lo utiliza para refinar su razonamiento y planificar el siguiente paso. Es fundamental para tareas que requieren información actualizada o interactuar con sistemas externos.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Prompt Chaining & Decomposición</h3>
+                                    <p class="text-gray-700 mt-2">Divide una tarea compleja en una secuencia de prompts más simples. La salida de un prompt se convierte en la entrada del siguiente. Por ejemplo, un primer prompt extrae datos, un segundo los resume y un tercero los formatea en un informe. Esto permite construir flujos de trabajo robustos y modulares, donde cada paso es más fácil de controlar y depurar.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="multimodalidad">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Multimodalidad: Más Allá del Texto</h2>
+                             <p class="text-gray-700 leading-relaxed mb-6">El prompting multimodal requiere especificar parámetros que van más allá del contenido semántico, abarcando atributos estéticos, técnicos y estructurales para cada modalidad.</p>
+                            <div class="space-y-8">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">🖼️ Imagen</h3>
+                                    <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                        <li><strong>Sujeto y Escena:</strong> Descripción detallada de los elementos, sus acciones y el entorno.</li>
+                                        <li><strong>Estilo Artístico:</strong> "Fotorrealista", "pintura al óleo", "arte digital", "estilo anime de los 90", "bauhaus".</li>
+                                        <li><strong>Composición:</strong> "Plano general", "primer plano extremo", "vista cenital", "regla de los tercios".</li>
+                                        <li><strong>Iluminación:</strong> "Luz dorada del atardecer", "iluminación de estudio dramática", "luz de neón cyberpunk".</li>
+                                        <li><strong>Parámetros de Cámara:</strong> "Lente de 35mm", "apertura f/1.8 con bokeh suave", "larga exposición".</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">🔊 Audio</h3>
+                                    <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                        <li><strong>Contenido y Locución:</strong> El texto a ser hablado, junto con indicaciones de emoción ("con un tono alegre y enérgico"), pausas y énfasis.</li>
+                                        <li><strong>Timbre y Voz:</strong> "Voz masculina profunda y resonante", "voz femenina suave y tranquilizadora".</li>
+                                        <li><strong>Tempo y Ritmo:</strong> "Habla a un ritmo pausado de 120 palabras por minuto", "narración rápida y urgente".</li>
+                                        <li><strong>Entorno Sonoro:</strong> "Grabar en un estudio sin eco (SNR alto)", "con un ligero ruido de fondo de una cafetería".</li>
+                                        <li><strong>Música y Efectos:</strong> "Acompañado de una sutil música de piano de fondo", "con un efecto de sonido de 'swoosh' en la transición".</li>
+                                    </ul>
+                                </div>
+                                 <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">🎬 Vídeo</h3>
+                                    <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                        <li><strong>Storyboard y Escenas:</strong> Descripción secuencial de las escenas. "Escena 1: Un astronauta flota en el espacio. Escena 2: Primer plano de su rostro reflejado en el casco".</li>
+                                        <li><strong>Duración y FPS:</strong> "Genera un clip de 10 segundos a 24 fps".</li>
+                                        <li><strong>Movimiento de Cámara:</strong> "Travelling suave hacia la derecha", "cámara en mano temblorosa para dar sensación de urgencia".</li>
+                                        <li><strong>Iluminación y Color:</strong> "Paleta de colores fríos y desaturados", "iluminación de alto contraste (chiaroscuro)".</li>
+                                        <li><strong>Transiciones y Efectos:</strong> "Corte directo a la siguiente escena", "transición con fundido a negro".</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="integracion">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Integración con RAG y Herramientas</h2>
+                            <p class="text-gray-700 leading-relaxed">El prompting moderno no ocurre en un vacío. Su verdadero poder se manifiesta cuando se integra con sistemas externos, superando las limitaciones inherentes de los modelos (conocimiento estático, falta de acceso a datos privados).</p>
+                            <h3 class="text-xl font-semibold text-gray-800 mt-6">Retrieval-Augmented Generation (RAG)</h3>
+                            <p class="text-gray-700 mt-2">RAG es un patrón arquitectónico donde, antes de generar una respuesta, el sistema recupera información relevante de una base de conocimiento externa (ej. documentos internos, base de datos de productos). El prompt se "aumenta" con este contexto recuperado, permitiendo al modelo responder preguntas sobre datos específicos y actualizados que no formaban parte de su entrenamiento.</p>
+                            <p class="text-gray-700 mt-2">Un prompt para un sistema RAG típicamente se estructura así:</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+                                    Usa el siguiente contexto para responder a la pregunta del usuario. Si la respuesta no se encuentra en el contexto, di que no lo sabes. No inventes información.
+
+                                    Contexto:
+                                    ###
+                                    {documentos_recuperados}
+                                    ###
+
+                                    Pregunta del usuario: {pregunta_original}
+
+                                    Respuesta:
+                                </code>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mt-6">Uso de Herramientas (Tooling)</h3>
+                            <p class="text-gray-700 mt-2">Siguiendo el patrón ReAct, los modelos pueden ser instruidos para usar herramientas externas. Esto se logra definiendo en el prompt las herramientas disponibles, su descripción y el formato para invocarlas. El modelo, en lugar de generar una respuesta final, puede emitir una llamada a una función (ej. en formato JSON) que el sistema anfitrión ejecuta. El resultado se devuelve al modelo para que continúe su razonamiento.</p>
+                            <p class="text-gray-700 mt-2">
+                                <code>// Pseudo-código ReAct para verificar datos</code><br>
+                                <code>Pensamiento: Necesito saber la capital de Mongolia para responder. Usaré la herramienta de búsqueda.</code><br>
+                                <code>Acción: search_tool("capital de Mongolia")</code><br>
+                                <code>Observación: Ulán Bator</code><br>
+                                <code>Pensamiento: La capital es Ulán Bator. Ahora puedo formular la respuesta final.</code>
+                            </p>
+                        </section>
+
+                        <section id="evaluacion">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Evaluación y Mitigación</h2>
+                            <p class="text-gray-700 leading-relaxed">Un prompt no es "bueno" o "malo" en abstracto, sino en relación con su rendimiento en un conjunto de evaluación. Es crucial establecer un marco de evaluación sistemático para medir la calidad y la fiabilidad de las respuestas antes de pasar a producción.</p>
+                            <h3 class="text-xl font-semibold text-gray-800 mt-6">Métricas Clave</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                <li><strong>Exactitud y Factualidad (No-Alucinación):</strong> ¿La respuesta es correcta y está basada en la fuente proporcionada (si aplica, como en RAG)? Se puede medir comparando con una "verdad fundamental" o usando un LLM como evaluador.</li>
+                                <li><strong>Adherencia al Formato:</strong> ¿La salida sigue la estructura solicitada (JSON, Markdown, lista)? Se puede validar con parsing o expresiones regulares.</li>
+                                <li><strong>Cobertura y Relevancia:</strong> ¿La respuesta aborda todas las partes de la pregunta del usuario sin añadir información superflua?</li>
+                                <li><strong>Tono y Estilo:</strong> ¿La respuesta se alinea con el rol o la personalidad solicitada?</li>
+                                <li><strong>Seguridad y Sesgos:</strong> ¿La respuesta contiene contenido dañino, sesgado o inapropiado? Se usan clasificadores de seguridad y listas de palabras clave.</li>
+                            </ul>
+                             <h3 class="text-xl font-semibold text-gray-800 mt-6">Estrategias de Mitigación</h3>
+                             <p class="text-gray-700 mt-2">Cuando un prompt falla, las estrategias de mitigación incluyen:</p>
+                             <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                <li><strong>Añadir Ejemplos Negativos:</strong> Mostrar al modelo no solo lo que debe hacer, sino también lo que no debe hacer.</li>
+                                <li><strong>Reforzar Restricciones:</strong> Repetir instrucciones críticas al final del prompt. "Es muy importante que la salida sea únicamente un objeto JSON válido".</li>
+                                <li><strong>Auto-Crítica:</strong> Pedir al modelo que revise su propia respuesta antes de finalizarla. "Revisa la respuesta anterior en busca de errores factuales y corrígelos".</li>
+                                <li><strong>A/B Testing:</strong> Probar sistemáticamente variantes de un prompt en un conjunto de evaluación para determinar cuál tiene un mejor rendimiento promedio. Por ejemplo, comparar el rendimiento de un prompt zero-shot vs uno few-shot.</li>
+                             </ul>
+                        </section>
+
+                        <section id="etica">
+                            <h2 class="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Ética y Seguridad</h2>
+                            <p class="text-gray-700 leading-relaxed">El prompt engineering conlleva una gran responsabilidad. Un prompt mal diseñado puede inducir al modelo a generar contenido sesgado, dañino, o que viole la privacidad y la propiedad intelectual.</p>
+                            <h3 class="text-xl font-semibold text-gray-800 mt-6">Riesgos Principales</h3>
+                             <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                <li><strong>Sesgos (Bias):</strong> Los modelos pueden amplificar los sesgos presentes en sus datos de entrenamiento. Un prompt que pida "una imagen de un CEO" podría generar desproporcionadamente imágenes de hombres blancos si no se controla.</li>
+                                <li><strong>Privacidad:</strong> Los modelos pueden filtrar accidentalmente información personal identificable (PII) si se les entrena o se les da contexto con dichos datos.</li>
+                                <li><strong>Propiedad Intelectual (IP):</strong> Los modelos pueden generar contenido que es sustancialmente similar a obras protegidas por derechos de autor.</li>
+                                <li><strong>Jailbreaking y Mal Uso:</strong> Los usuarios maliciosos diseñan prompts para eludir las barreras de seguridad del modelo y hacer que genere contenido prohibido (desinformación, discurso de odio, etc.).</li>
+                             </ul>
+                             <h3 class="text-xl font-semibold text-gray-800 mt-6">Mitigaciones desde el Prompt</h3>
+                             <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                                <li><strong>Instrucciones de Equidad:</strong> Incluir directivas explícitas para promover la diversidad y la imparcialidad. "Asegúrate de que las personas representadas en las imágenes reflejen una diversidad de etnias y géneros".</li>
+                                <li><strong>Filtros y Validaciones de Salida:</strong> Usar prompts de "auto-revisión" o sistemas externos para escanear las salidas en busca de PII, contenido dañino o similitudes con IP conocida antes de mostrarlas al usuario.</li>
+                                <li><strong>Contextual Grounding (Anclaje):</strong> En sistemas RAG, instruir fuertemente al modelo para que base su respuesta *únicamente* en la información proporcionada, reduciendo la probabilidad de alucinaciones o invención de datos.</li>
+                                <li><strong>Defensa contra Inyección de Prompts:</strong> Usar delimitadores fuertes y técnicas de sanitización de entradas para evitar que el input de un usuario pueda ser interpretado como una instrucción que secuestre el prompt original.</li>
+                             </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div id="plantillas" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Anexo 1: Plantillas Listas para Usar</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Text Templates -->
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-semibold text-gray-800">Texto</h3>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">1. Extracción de Entidades con Formato JSON</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Rol: Eres un sistema de extracción de información altamente preciso.
+
+Tarea: Extrae las siguientes entidades del texto proporcionado: [lista_de_entidades].
+Restricciones:
+1.  La salida debe ser un objeto JSON válido.
+2.  Si una entidad no está presente, su valor debe ser `null`.
+3.  Las fechas deben estar en formato YYYY-MM-DD.
+
+Texto a procesar:
+"""
+{texto_de_entrada}
+"""
+
+JSON de salida:
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">2. Resumen Ejecutivo (Few-Shot)</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Tarea: Genera un resumen ejecutivo de no más de {numero_de_palabras} palabras del siguiente artículo. El resumen debe capturar el problema, la solución propuesta y los resultados clave.
+
+Ejemplo 1:
+Texto: [Ejemplo de artículo largo 1]
+Resumen: [Ejemplo de resumen conciso 1]
+
+Ejemplo 2:
+Texto: [Ejemplo de artículo largo 2]
+Resumen: [Ejemplo de resumen conciso 2]
+
+Artículo para resumir:
+"""
+{articulo_completo}
+"""
+
+Resumen ejecutivo:
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                             <p class="font-semibold">3. Cambio de Tono y Estilo</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Rol: Eres un experto en comunicación y redacción.
+
+Tarea: Reescribe el siguiente texto para que adopte un tono {tono_deseado} (ej. profesional, amigable, persuasivo) y esté dirigido a una audiencia de {audiencia_objetivo} (ej. expertos técnicos, principiantes).
+Restricciones: Mantén el significado central y la información clave del texto original.
+
+Texto original:
+---
+{texto_original}
+---
+
+Texto reescrito:
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Image Templates -->
+                    <div class="space-y-4">
+                         <h3 class="text-2xl font-semibold text-gray-800">Imagen</h3>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">1. Creación de Activos para Marca</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Sujeto: Un logo minimalista para una marca llamada "{nombre_de_marca}". El logo debe representar los conceptos de {concepto_1} y {concepto_2}.
+Estilo: Vector plano, diseño limpio, usando una paleta de colores de {color_primario} y {color_secundario}.
+Composición: Centrado, con espacio negativo.
+Resolución: Alta resolución, fondo blanco.
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                             <p class="font-semibold">2. Escena Fotorrealista Detallada</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Fotorrealismo, plano general de {descripcion_de_escena}.
+Sujetos principales: {descripcion_de_sujetos}.
+Iluminación: {tipo_de_iluminacion} (ej. luz suave de la mañana, dramática luz de neón).
+Cámara: {tipo_de_lente} (ej. lente 50mm), apertura {valor_apertura} (ej. f/2.8), enfoque nítido en el sujeto principal con un fondo ligeramente desenfocado.
+Estilo: Cinematográfico, colores {descripcion_de_colores} (ej. vibrantes y saturados).
+                                </code>
+                            </div>
+                        </div>
+                         <div class="p-4 border rounded-lg">
+                             <p class="font-semibold">3. Personaje de Videojuego</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Concept art de un personaje de videojuego, {rol_del_personaje} (ej. un mago astuto).
+Género: {genero_personaje}.
+Vestimenta: {descripcion_de_vestimenta}.
+Accesorios: {descripcion_de_accesorios}.
+Estilo artístico: {estilo_artistico} (ej. fantasía oscura, cel-shading, Ghibli).
+Pose: {descripcion_de_pose} (ej. pose de acción, sosteniendo un orbe de energía).
+Fondo: Simple, color neutro.
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Audio Templates -->
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-semibold text-gray-800">Audio</h3>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">1. Locución para Anuncio</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Genera una locución de audio del siguiente texto.
+Texto: "{texto_del_anuncio}"
+Voz: {tipo_de_voz} (ej. femenina, cálida y convincente).
+Tono: {tono_emocional} (ej. enérgico y optimista).
+Tempo: {velocidad} (ej. 140 palabras por minuto).
+Música de fondo: Sutil pista de {genero_musical} a bajo volumen.
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">2. Efecto de Sonido Específico</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Crea un efecto de sonido de {descripcion_del_sonido} (ej. un portal mágico abriéndose).
+Duración: {duracion_en_segundos} segundos.
+Características: Debe sonar {caracteristica_1} y {caracteristica_2} (ej. etéreo, con un bajo profundo).
+Entorno: Sonido limpio, de estudio, sin reverberación.
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">3. Diálogo entre Personajes</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Genera el siguiente diálogo:
+Personaje A ({descripcion_voz_A}): "{dialogo_A}"
+Personaje B ({descripcion_voz_B}): "{dialogo_B}"
+Ambiente: Ligero ruido de fondo de {ambiente} (ej. una calle concurrida).
+Calidad: Audio claro, como si fuera de un podcast.
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Video Templates -->
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-semibold text-gray-800">Vídeo</h3>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">1. Clip Corto para Redes Sociales</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Genera un vídeo de {duracion} segundos para redes sociales.
+Escena: {descripcion_escena_visual} (ej. time-lapse de nubes moviéndose sobre una montaña).
+Estilo: {estilo_visual} (ej. cinematográfico, colores vibrantes).
+Movimiento de cámara: {movimiento} (ej. travelling lento hacia adelante).
+Formato: Vertical 9:16.
+FPS: 30.
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">2. Animación de Storyboard</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Anima el siguiente storyboard:
+Escena 1 (3s): {descripcion_escena_1}. Movimiento: {movimiento_1}.
+Escena 2 (4s): {descripcion_escena_2}. Movimiento: {movimiento_2}.
+Escena 3 (3s): {descripcion_escena_3}. Movimiento: {movimiento_3}.
+Transiciones: Usar cortes suaves entre escenas.
+Estilo de animación: {estilo_animacion} (ej. 2D minimalista).
+                                </code>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <p class="font-semibold">3. Visualización de Producto 360°</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn">Copiar</button>
+                                <code>
+Crea una visualización de vídeo de un producto.
+Producto: {descripcion_del_producto}.
+Acción: El producto rota lentamente 360 grados sobre su eje vertical.
+Fondo: Blanco infinito de estudio.
+Iluminación: Suave y difusa, sin sombras duras.
+Duración: 10 segundos.
+Calidad: 4K, fotorrealista.
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="checklists" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Anexo 2: Checklists de Calidad</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-4 border rounded-lg bg-white">
+                        <h3 class="font-semibold text-lg text-gray-800">✅ General</h3>
+                        <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+                            <li>¿El rol está claramente definido?</li>
+                            <li>¿El contexto es suficiente?</li>
+                            <li>¿La tarea es específica y no ambigua?</li>
+                            <li>¿Se define el formato de salida?</li>
+                            <li>¿Se usan delimitadores para el input?</li>
+                            <li>¿El prompt es conciso y directo?</li>
+                            <li>¿Se han incluido ejemplos (few-shot) si la tarea es compleja?</li>
+                        </ul>
+                    </div>
+                     <div class="p-4 border rounded-lg bg-white">
+                        <h3 class="font-semibold text-lg text-gray-800">✍️ Texto</h3>
+                        <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+                            <li>¿Se especifica el tono y la audiencia?</li>
+                            <li>¿Hay un límite de palabras/párrafos?</li>
+                            <li>¿Se pide una estructura específica (puntos, resumen, etc.)?</li>
+                            <li>¿Se han definido las restricciones de contenido (ej. no mencionar X tema)?</li>
+                        </ul>
+                    </div>
+                     <div class="p-4 border rounded-lg bg-white">
+                        <h3 class="font-semibold text-lg text-gray-800">🖼️ Imagen</h3>
+                        <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+                            <li>¿Se describe el sujeto y la acción?</li>
+                            <li>¿El estilo artístico está bien definido?</li>
+                            <li>¿Se dan indicaciones de composición e iluminación?</li>
+                            <li>¿Se mencionan parámetros de cámara si es fotorrealista?</li>
+                            <li>¿Se han usado "negative prompts" para excluir elementos no deseados?</li>
+                        </ul>
+                    </div>
+                     <div class="p-4 border rounded-lg bg-white">
+                        <h3 class="font-semibold text-lg text-gray-800">🔊 Audio</h3>
+                        <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+                            <li>¿Se define el timbre y la emoción de la voz?</li>
+                            <li>¿Se especifica el tempo?</li>
+                            <li>¿Se describe el ambiente sonoro?</li>
+                            <li>¿Se dan indicaciones de pausas o énfasis?</li>
+                        </ul>
+                    </div>
+                     <div class="p-4 border rounded-lg bg-white">
+                        <h3 class="font-semibold text-lg text-gray-800">🎬 Vídeo</h3>
+                        <ul class="mt-2 list-disc list-inside text-gray-700 space-y-1">
+                            <li>¿El storyboard está descrito escena por escena?</li>
+                            <li>¿Se indica la duración y los FPS?</li>
+                            <li>¿Se describen los movimientos de cámara?</li>
+                            <li>¿La paleta de colores y el estilo están definidos?</li>
+                            <li>¿Se mencionan las transiciones?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="biblioteca" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Anexo 3: Biblioteca de Prompts de Verificación</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Validación de Esquema / JSON</h3>
+                        <p class="text-gray-600 mt-1">Úsalo en una cadena para forzar la corrección del formato de salida.</p>
+                        <div class="code-block mt-2">
+                            <button class="copy-btn">Copiar</button>
+                            <code>
+El siguiente es un texto generado por una IA.
+Verifica si es un objeto JSON válido que se adhiere al siguiente esquema: {esquema_json}.
+Si no es válido o no se adhiere, corrígelo. Responde únicamente con el JSON corregido y válido.
+
+Texto a verificar:
+"""
+{json_generado_previamente}
+"""
+                            </code>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Auto-Revisión de Factualidad (para RAG)</h3>
+                         <p class="text-gray-600 mt-1">Pide al modelo que revise su propia respuesta contra el contexto original.</p>
+                        <div class="code-block mt-2">
+                            <button class="copy-btn">Copiar</button>
+                            <code>
+Contexto proporcionado:
+###
+{contexto_original_rag}
+###
+
+Respuesta generada:
+---
+{respuesta_generada}
+---
+
+Tarea: Revisa la "Respuesta generada". ¿Contiene alguna afirmación que NO esté directamente respaldada por el "Contexto proporcionado"? Si es así, reescribe la respuesta para que sea 100% fiel al contexto. Si ya es fiel, responde con la respuesta original sin cambios.
+                            </code>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Prompt de Expansión para RAG (Query Expansion)</h3>
+                         <p class="text-gray-600 mt-1">Genera preguntas alternativas para mejorar la recuperación de documentos.</p>
+                        <div class="code-block mt-2">
+                            <button class="copy-btn">Copiar</button>
+                            <code>
+Dada la siguiente pregunta de usuario, genera 3 preguntas alternativas que aborden la misma intención pero desde diferentes ángulos. Estas preguntas se usarán para buscar en una base de datos de documentos.
+
+Pregunta original: "{pregunta_de_usuario}"
+
+Preguntas alternativas:
+1. 
+2. 
+3. 
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="json" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Anexo 4: Recurso JSON</h2>
+                <p class="text-gray-600 mb-4">Un objeto JSON que resume los conceptos clave de esta guía, útil para integración en sistemas o como referencia rápida.</p>
+                <div class="code-block text-sm">
+                    <button class="copy-btn">Copiar</button>
+                    <pre><code id="json-resource"></code></pre>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            const guideNavLinks = document.querySelectorAll('#guide-nav .nav-link');
+            const guideSections = document.querySelectorAll('#guia section');
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            const jsonData = {
+              "principios": [
+                "Claridad y Especificidad",
+                "Contexto Completo",
+                "Asignación de Rol (Persona Prompting)",
+                "Instrucciones Explícitas y Formato de Salida",
+                "Delimitadores",
+                "Iteración y Refinamiento"
+              ],
+              "tecnicas": [
+                {
+                  "nombre": "Chain of Thought (CoT)",
+                  "cuando_usar": "Problemas que requieren razonamiento paso a paso (matemáticas, lógica).",
+                  "pasos": "1. Añadir 'Pensemos paso a paso' al prompt. 2. El modelo genera el razonamiento. 3. El modelo da la respuesta final."
+                },
+                {
+                  "nombre": "Self-Consistency",
+                  "cuando_usar": "Tareas críticas donde la robustez es clave, para reducir errores de razonamiento.",
+                  "pasos": "1. Generar múltiples cadenas de pensamiento con temperatura > 0. 2. Extraer la respuesta final de cada una. 3. Elegir la respuesta más frecuente."
+                },
+                {
+                  "nombre": "ReAct",
+                  "cuando_usar": "Tareas que necesitan información actualizada o interactuar con APIs/sistemas externos.",
+                  "pasos": "1. El modelo genera un plan (Pensamiento). 2. El modelo emite una llamada a una herramienta (Acción). 3. El sistema ejecuta la herramienta y devuelve el resultado (Observación). 4. Repetir hasta resolver la tarea."
+                }
+              ],
+              "plantillas": [
+                {
+                  "modalidad": "Texto",
+                  "nombre": "Extracción de Entidades con Formato JSON",
+                  "variables": ["lista_de_entidades", "texto_de_entrada"],
+                  "prompt": "Rol: Eres un sistema de extracción... Tarea: Extrae... Restricciones: ... Texto: {texto_de_entrada} JSON de salida:",
+                  "ejemplos": ["Extraer 'nombre' y 'fecha' de un email."]
+                },
+                {
+                  "modalidad": "Imagen",
+                  "nombre": "Escena Fotorrealista Detallada",
+                  "variables": ["descripcion_de_escena", "descripcion_de_sujetos", "tipo_de_iluminacion", "tipo_de_lente", "valor_apertura", "descripcion_de_colores"],
+                  "prompt": "Fotorrealismo, plano general de {descripcion_de_escena}...",
+                  "ejemplos": ["Crear una imagen de un bosque al amanecer con niebla."]
+                }
+              ],
+              "checklists": {
+                "general": ["¿Rol definido?", "¿Contexto suficiente?", "¿Tarea específica?", "¿Formato de salida definido?"],
+                "texto": ["¿Tono y audiencia especificados?", "¿Límite de palabras?", "¿Estructura pedida?"],
+                "imagen": ["¿Sujeto y acción descritos?", "¿Estilo artístico definido?", "¿Composición e iluminación indicadas?"],
+                "audio": ["¿Timbre y emoción definidos?", "¿Tempo especificado?", "¿Ambiente sonoro descrito?"],
+                "video": ["¿Storyboard escena por escena?", "¿Duración y FPS indicados?", "¿Movimientos de cámara descritos?"]
+              },
+              "evaluacion": {
+                "metricas": ["Exactitud (No-Alucinación)", "Adherencia al Formato", "Cobertura y Relevancia", "Tono y Estilo", "Seguridad y Sesgos"],
+                "tests": ["Comparación con 'verdad fundamental'", "Validación por parsing/regex", "Evaluación humana por rubricas", "Clasificadores de seguridad"]
+              }
+            };
+
+            document.getElementById('json-resource').textContent = JSON.stringify(jsonData, null, 2);
+
+            function activateTab(tabId) {
+                tabs.forEach(btn => {
+                    if (btn.dataset.tab === tabId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                contentSections.forEach(section => {
+                    if (section.id === tabId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    activateTab(tab.dataset.tab);
+                });
+            });
+
+            activateTab('guia');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        guideNavLinks.forEach((link) => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+
+            guideSections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            guideNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const codeBlock = button.parentElement;
+                    const code = codeBlock.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        button.textContent = '¡Copiado!';
+                        setTimeout(() => {
+                            button.textContent = 'Copiar';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Error al copiar: ', err);
+                    });
+                });
+            });
+            
+            // Chart.js implementation
+            const ctx = document.getElementById('techniquesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['CoT', 'Self-Consistency', 'ToT', 'ReAct', 'Prompt Chaining'],
+                    datasets: [{
+                        label: 'Aumento de Rendimiento Estimado',
+                        data: [65, 75, 80, 90, 85],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Complejidad de Implementación',
+                        data: [30, 50, 90, 80, 60],
+                        backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Valoración Relativa (0-100)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativa de Técnicas Avanzadas de Prompting',
+                            font: {
+                                size: 18
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

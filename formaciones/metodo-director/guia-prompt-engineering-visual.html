@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Prompt Engineering 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals with colorful accents -->
+    <!-- Application Structure Plan: A single-page, top-to-bottom vertical scrolling infographic. This structure is chosen to present the key concepts from the guide in a visually dense, easy-to-scan format, prioritizing quick comprehension over deep interactivity. The flow moves from definition -> principles -> techniques -> multimodality -> tools -> checklist. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Core Principles. Goal: Summarize. Viz/Presentation: 3x2 grid with Unicode icons (🎯, 📚) and short text. Justification: High scannability, visually engaging. Library: HTML/Tailwind.
+        2. Report Info: Advanced Techniques. Goal: Show relative impact. Viz/Presentation: Donut Chart. Interaction: Tooltips. Justification: Simple, clear data visualization for an infographic. Library: Chart.js (Canvas).
+        3. Report Info: RAG Flow. Goal: Explain a process. Viz/Presentation: HTML/CSS flexbox diagram with Unicode arrows (→). Justification: A clear, lightweight visual representation of a process without SVG. Library: HTML/Tailwind.
+        4. Report Info: Multimodal Params. Goal: Compare modalities. Viz/Presentation: 2x2 grid listing key parameters for Text, Image, Audio, Video. Justification: Easy side-by-side comparison. Library: HTML/Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF8;
+            color: #3a3a3a;
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        .section-card {
+            background-color: white;
+            border: 1px solid #F3F4F6;
+            border-radius: 0.75rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .principle-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.25rem;
+            background-color: #EFF6FF;
+            color: #1E40AF;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #9CA3AF;
+            margin: 0 1rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            height: 320px;
+            max-height: 40vh;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto max-w-4xl px-4 py-12">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800">Prompt Engineering 2025</h1>
+            <p class="mt-4 text-xl text-gray-600">La guía visual para dominar la IA generativa.</p>
+        </header>
+
+        <!-- Section 1: Definition -->
+        <section class="section-card">
+            <h2 class="section-title">¿Qué es el Prompt Engineering?</h2>
+            <p class="text-center text-gray-700 leading-relaxed text-lg">
+                Es la disciplina de <strong>diseñar, refinar y optimizar</strong> las entradas (prompts) para guiar a los modelos de IA hacia resultados <strong>precisos, deseados y seguros</strong>. Es el puente entre la intención humana y la computación de la máquina.
+            </p>
+        </section>
+
+        <!-- Section 2: Principles -->
+        <section class="section-card">
+            <h2 class="section-title">Principios Universales</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">🎯</span>
+                    <h3 class="font-bold text-lg mt-2">Claridad</h3>
+                    <p class="text-sm text-gray-600">Sé específico, evita la ambigüedad.</p>
+                </div>
+                
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">📚</span>
+                    <h3 class="font-bold text-lg mt-2">Contexto</h3>
+                    <p class="text-sm text-gray-600">Proporciona el fondo y los ejemplos necesarios.</p>
+                </div>
+                
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">👤</span>
+                    <h3 class="font-bold text-lg mt-2">Rol (Persona)</h3>
+                    <p class="text-sm text-gray-600">"Actúa como un experto en..."</p>
+                </div>
+                
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">📏</span>
+                    <h3 class="font-bold text-lg mt-2">Formato</h3>
+                    <p class="text-sm text-gray-600">Define la salida (JSON, lista, etc.).</p>
+                </div>
+                
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">🔄</span>
+                    <h3 class="font-bold text-lg mt-2">Iteración</h3>
+                    <p class="text-sm text-gray-600">Prueba, analiza y refina tu prompt.</p>
+                </div>
+
+                <div class="text-center p-4 rounded-lg bg-gray-50">
+                    <span class="principle-icon">###</span>
+                    <h3 class="font-bold text-lg mt-2">Delimitadores</h3>
+                    <p class="text-sm text-gray-600">Separa instrucciones de contenido.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Techniques -->
+        <section class="section-card">
+            <h2 class="section-title">Enfoques Clave</h2>
+            <p class="text-center text-gray-700 leading-relaxed mb-8">
+                Las técnicas avanzadas mejoran el razonamiento y la fiabilidad. El <strong>RAG</strong> (Generación Aumentada por Recuperación) es fundamental para conectar la IA con datos externos y actualizados.
+            </p>
+            <div class="chart-container">
+                <canvas id="techniquesChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 4: Multimodal -->
+        <section class="section-card">
+            <h2 class="section-title">El Prompt Multimodal</h2>
+            <p class="text-center text-gray-700 leading-relaxed mb-8">
+                Más allá del texto, cada modalidad tiene sus propios parámetros de control.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <div class="p-4 rounded-lg border bg-blue-50">
+                    <h3 class="font-bold text-xl text-blue-800">✍️ Texto</h3>
+                    <ul class="mt-2 list-disc list-inside text-blue-700 text-sm">
+                        <li>Tono y Audiencia</li>
+                        <li>Formato y Estructura</li>
+                        <li>Límite de Palabras</li>
+                        <li>Factualidad</li>
+                    </ul>
+                </div>
+                
+                <div class="p-4 rounded-lg border bg-purple-50">
+                    <h3 class="font-bold text-xl text-purple-800">🖼️ Imagen</h3>
+                    <ul class="mt-2 list-disc list-inside text-purple-700 text-sm">
+                        <li>Sujeto y Escena</li>
+                        <li>Estilo Artístico</li>
+                        <li>Composición</li>
+                        <li>Lente e Iluminación</li>
+                    </ul>
+                </div>
+                
+                <div class="p-4 rounded-lg border bg-green-50">
+                    <h3 class="font-bold text-xl text-green-800">🔊 Audio</h3>
+                    <ul class="mt-2 list-disc list-inside text-green-700 text-sm">
+                        <li>Timbre y Emoción</li>
+                        <li>Locución y Tempo</li>
+                        <li>SNR (Ruido)</li>
+                        <li>Efectos de Sonido</li>
+                    </ul>
+                </div>
+                
+                <div class="p-4 rounded-lg border bg-yellow-50">
+                    <h3 class="font-bold text-xl text-yellow-800">🎬 Vídeo</h3>
+                    <ul class="mt-2 list-disc list-inside text-yellow-700 text-sm">
+                        <li>Storyboard (Escenas)</li>
+                        <li>Mov. de Cámara</li>
+                        <li>Duración y FPS</li>
+                        <li>Iluminación y Color</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Section 5: RAG Flow -->
+        <section class="section-card">
+            <h2 class="section-title">Anatomía de un Sistema RAG</h2>
+            <p class="text-center text-gray-700 leading-relaxed mb-8">
+                RAG (Retrieval-Augmented Generation) conecta los LLMs a tus datos privados para dar respuestas basadas en hechos.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <div class="flow-step">1. Pregunta<br>del Usuario</div>
+                <div class="flow-arrow hidden md:block">→</div>
+                <div class="flow-arrow md:hidden">↓</div>
+                <div class="flow-step bg-green-100 text-green-800">2. Recuperar<br>Datos (Vector DB)</div>
+                <div class="flow-arrow hidden md:block">→</div>
+                <div class="flow-arrow md:hidden">↓</div>
+                <div class="flow-step bg-purple-100 text-purple-800">3. Aumentar<br>Prompt + Contexto</div>
+                <div class="flow-arrow hidden md:block">→</div>
+                <div class="flow-arrow md:hidden">↓</div>
+                <div class="flow-step bg-yellow-100 text-yellow-800">4. Generar<br>Respuesta (LLM)</div>
+            </div>
+        </section>
+
+        <!-- Section 6: Checklist -->
+        <section class="section-card">
+            <h2 class="section-title">Checklist de Calidad</h2>
+            <div class="max-w-md mx-auto">
+                <ul class="space-y-3 text-gray-700 text-lg">
+                    <li class="flex items-center"><span class="mr-3 text-green-500">✅</span> <strong>Rol Definido:</strong> ¿Sabe la IA "quién" es?</li>
+                    <li class="flex items-center"><span class="mr-3 text-green-500">✅</span> <strong>Tarea Específica:</strong> ¿Es la instrucción clara y única?</li>
+                    <li class="flex items-center"><span class="mr-3 text-green-500">✅</span> <strong>Contexto Suficiente:</strong> ¿Tiene la IA la información de fondo?</li>
+                    <li class="flex items-center"><span class="mr-3 text-green-500">✅</span> <strong>Formato de Salida:</strong> ¿Sabe cómo estructurar la respuesta?</li>
+                    <li class="flex items-center"><span class="mr-3 text-green-500">✅</span> <strong>Restricciones Claras:</strong> ¿Sabe la IA lo que NO debe hacer?</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-12 mb-4">
+            <p class="text-sm text-gray-500">&copy; 2025 Guía Visual de Prompt Engineering.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('techniquesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['RAG (Datos Externos)', 'CoT (Razonamiento)', 'ReAct (Herramientas)', 'Few-Shot (Ejemplos)'],
+                    datasets: [{
+                        label: 'Impacto en Tareas de Producción',
+                        data: [40, 25, 20, 15],
+                        backgroundColor: [
+                            '#3B82F6', // Blue
+                            '#10B981', // Green
+                            '#8B5CF6', // Purple
+                            '#F59E0B'  // Yellow
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Técnicas de Alto Impacto',
+                            font: {
+                                size: 16,
+                                weight: '600'
+                            },
+                            padding: {
+                                bottom: 20
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

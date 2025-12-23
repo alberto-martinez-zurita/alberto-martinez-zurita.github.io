@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chain-of-Thought (CoT) - Aprende a usar la IA de manera Efectiva</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #181B24;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+        .wave-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 300px;
+            z-index: 1;
+        }
+        .content-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            height: 100%;
+            padding: 80px;
+        }
+        .left-content {
+            flex: 1;
+            padding-right: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 90%;
+            color: #A0A0A0;
+        }
+        .purple-bar {
+            width: 8px;
+            background-color: #B165FB;
+            margin-right: 20px;
+            height: 100px;
+        }
+        .cot-container {
+            width: 500px;
+            height: 590px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .title-with-bar {
+            display: flex;
+            align-items: flex-start;
+        }
+        .company-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #A0A0A0;
+        }
+        .key-point {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .key-point-icon {
+            background-color: #B165FB;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .key-point-text {
+            font-size: 1.1rem;
+            color: white;
+        }
+        .highlight {
+            color: #B165FB;
+            font-weight: 600;
+        }
+        .step-container {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(177, 101, 251, 0.3);
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .step-number {
+            background-color: #B165FB;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .step-title {
+            color: white;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .step-content {
+            padding-left: 35px;
+            color: #A0A0A0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<svg class="wave-decoration" viewbox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+<path d="M0,100 Q125,50 250,100 T500,100 T750,100 T1000,100 T1250,100 T1500,100" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,110 Q125,60 250,110 T500,110 T750,110 T1000,110 T1250,110 T1500,110" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,120 Q125,70 250,120 T500,120 T750,120 T1000,120 T1250,120 T1500,120" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,130 Q125,80 250,130 T500,130 T750,130 T1000,130 T1250,130 T1500,130" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,140 Q125,90 250,140 T500,140 T750,140 T1000,140 T1250,140 T1500,140" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,150 Q125,100 250,150 T500,150 T750,150 T1000,150 T1250,150 T1500,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,160 Q125,110 250,160 T500,160 T750,160 T1000,160 T1250,160 T1500,160" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,170 Q125,120 250,170 T500,170 T750,170 T1000,170 T1250,170 T1500,170" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,180 Q125,130 250,180 T500,180 T750,180 T1000,180 T1250,180 T1500,180" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+<path d="M0,190 Q125,140 250,190 T500,190 T750,190 T1000,190 T1250,190 T1500,190" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1.5"></path>
+</svg>
+<div class="content-container">
+<div class="left-content">
+<div class="title-with-bar">
+<div class="purple-bar"></div>
+<div>
+<h1 class="title">CHAIN-OF-<br/>THOUGHT</h1>
+<p class="subtitle">Pidiendo a la orquesta que "piense paso a paso", mejoramos drásticamente la precisión y podemos auditar el razonamiento de la IA en problemas complejos.</p>
+</div>
+</div>
+<div class="key-point">
+<div class="key-point-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<p class="key-point-text">Concepto: Solicitar explícitamente que la IA <span class="highlight">muestre su razonamiento</span> antes de llegar a la conclusión.</p>
+</div>
+<div class="key-point">
+<div class="key-point-icon">
+<i class="fas fa-chart-line"></i>
+</div>
+<p class="key-point-text">Impacto: Mejora hasta un <span class="highlight">40%</span> la precisión en matemáticas, lógica y análisis complejos.</p>
+</div>
+<div class="key-point">
+<div class="key-point-icon">
+<i class="fas fa-code"></i>
+</div>
+<p class="key-point-text">Aplicación: <span class="highlight">Esencial para IT</span> en casos como migración legacy a microservicios.</p>
+</div>
+<div class="key-point">
+<div class="key-point-icon">
+<i class="fas fa-quote-right"></i>
+</div>
+<p class="key-point-text">Frase clave: "<span class="highlight">Piensa paso a paso</span>" o "Explica tu razonamiento".</p>
+</div>
+</div>
+<div class="right-content">
+<div class="cot-container">
+<div class="step-container">
+<div class="step-header">
+<div class="step-number">1</div>
+<div class="step-title">PROMPT TRADICIONAL</div>
+</div>
+<p class="step-content">
+                            "¿Cuál es la mejor arquitectura para migrar nuestra aplicación Java legacy a microservicios?"
+                        </p>
+</div>
+<div class="step-container">
+<div class="step-header">
+<div class="step-number">2</div>
+<div class="step-title">PROMPT CON CHAIN-OF-THOUGHT</div>
+</div>
+<p class="step-content">
+                            "Piensa paso a paso para determinar la mejor arquitectura para migrar nuestra aplicación Java legacy a microservicios. Analiza las dependencias, acoplamiento y estado actual antes de recomendar."
+                        </p>
+</div>
+<div class="step-container">
+<div class="step-header">
+<div class="step-number">3</div>
+<div class="step-title">RESPUESTA MEJORADA</div>
+</div>
+<p class="step-content">
+                            "Analizaré este problema paso a paso:<br/>
+                            1. Primero, evaluaré el acoplamiento entre componentes...<br/>
+                            2. Segundo, identificaré límites de contexto en el dominio...<br/>
+                            3. Tercero, consideraré estado compartido y transaccionalidad...<br/>
+                            4. Por último, evaluaré estrategias de migración incremental...<br/><br/>
+                            Basado en este análisis, recomiendo una arquitectura de..."
+                        </p>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

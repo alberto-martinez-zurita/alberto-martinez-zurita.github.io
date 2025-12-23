@@ -1,0 +1,1 @@
+cambia los textos entre ** texto ** para que se vea en negrita en html, revisa el plan de la hackathon para que dure 24h, cambia Chatbot del menú por Savia y Savia Chatbot demo por Savia, 

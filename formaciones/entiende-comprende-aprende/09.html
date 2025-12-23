@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto de la IA en las Personas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        .ai-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="w-full" style="width: 1280px; min-height: 720px;">
+        <div class="bg-white h-full flex flex-col">
+            
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-12 py-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-white text-lg mr-3"></i>
+                            <span class="text-white text-sm font-medium">COMPRENDE</span>
+                        </div>
+                        <h1 class="text-3xl font-bold text-white mt-1">Impacto en las Personas</h1>
+                        <p class="text-blue-100 text-base">Cómo la IA está transformando nuestra vida cotidiana</p>
+                    </div>
+                    <i class="fas fa-users text-white text-4xl opacity-20"></i>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex-1 px-12 py-6">
+                
+                <!-- Daily AI Usage -->
+                <div class="grid grid-cols-2 gap-8 mb-6">
+                    
+                    <!-- Left: AI You Already Use -->
+                    <div class="slide-in">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">IA que Ya Usas (Sin Darte Cuenta)</h2>
+                        <div class="space-y-3">
+                            
+                            <div class="flex items-center bg-blue-50 rounded-lg p-3">
+                                <div class="bg-blue-500 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-search text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Google Search</h4>
+                                    <p class="text-gray-600 text-xs">Autocompletado y resultados personalizados</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center bg-green-50 rounded-lg p-3">
+                                <div class="bg-green-500 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Netflix / YouTube</h4>
+                                    <p class="text-gray-600 text-xs">Recomendaciones de contenido</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center bg-purple-50 rounded-lg p-3">
+                                <div class="bg-purple-500 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-shopping-cart text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Amazon / Tiendas Online</h4>
+                                    <p class="text-gray-600 text-xs">"Otros compraron también"</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center bg-red-50 rounded-lg p-3">
+                                <div class="bg-red-500 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-shield-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Email / Redes Sociales</h4>
+                                    <p class="text-gray-600 text-xs">Filtros de spam y contenido</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center bg-yellow-50 rounded-lg p-3">
+                                <div class="bg-yellow-500 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-route text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Google Maps / Waze</h4>
+                                    <p class="text-gray-600 text-xs">Rutas optimizadas en tiempo real</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Impact Areas -->
+                    <div class="slide-in" style="animation-delay: 0.2s;">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Áreas de Transformación</h2>
+                        
+                        <!-- Positive Impacts -->
+                        <div class="bg-green-50 rounded-lg p-4 mb-4">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-thumbs-up text-green-600 text-lg mr-2"></i>
+                                <h3 class="font-semibold text-green-800">Beneficios</h3>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-clock text-green-500 mr-1"></i>
+                                        <span class="font-medium">Ahorro de tiempo</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-brain text-green-500 mr-1"></i>
+                                        <span class="font-medium">Decisiones mejores</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-universal-access text-green-500 mr-1"></i>
+                                        <span class="font-medium">Más accesibilidad</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-heart text-green-500 mr-1"></i>
+                                        <span class="font-medium">Mejor salud</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-graduation-cap text-green-500 mr-1"></i>
+                                        <span class="font-medium">Educación personalizada</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-comments text-green-500 mr-1"></i>
+                                        <span class="font-medium">Comunicación fluida</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concerns -->
+                        <div class="bg-orange-50 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-exclamation-triangle text-orange-600 text-lg mr-2"></i>
+                                <h3 class="font-semibold text-orange-800">Preocupaciones</h3>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-eye-slash text-orange-500 mr-1"></i>
+                                        <span class="font-medium">Privacidad</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-balance-scale text-orange-500 mr-1"></i>
+                                        <span class="font-medium">Sesgos algorítmicos</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-question-circle text-orange-500 mr-1"></i>
+                                        <span class="font-medium">Transparencia</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-user-check text-orange-500 mr-1"></i>
+                                        <span class="font-medium">Dependencia</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Spain 2024 -->
+                <div class="bg-blue-50 rounded-lg p-6 mb-4 slide-in" style="animation-delay: 0.4s;">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Situación en España 2024</h3>
+                            <div class="grid grid-cols-3 gap-6 text-sm">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-blue-600 mb-1">26%</div>
+                                    <p class="text-gray-600 text-xs">de trabajadores usa IA más que el año pasado</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600 mb-1">27.4%</div>
+                                    <p class="text-gray-600 text-xs">de empleos están expuestos a IA generativa</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-purple-600 mb-1">40%</div>
+                                    <p class="text-gray-600 text-xs">teme que la IA reemplace su trabajo</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pulse-dot ai-glow">
+                            <i class="fas fa-chart-line text-blue-600 text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movie Reference -->
+                <div class="bg-gray-100 rounded-lg p-4 slide-in" style="animation-delay: 0.6s;">
+                    <div class="flex items-center">
+                        <i class="fas fa-film text-gray-600 text-xl mr-3"></i>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-1">Realidad vs. Ficción</h4>
+                            <p class="text-gray-700 text-sm">
+                                Mientras <strong>Her (2013)</strong> muestra una IA que entiende emociones profundamente, 
+                                hoy la IA nos ayuda de formas más sutiles: recomendando música, optimizando rutas, 
+                                y facilitando tareas cotidianas sin drama cinematográfico.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-100 px-12 py-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500 text-sm">Sección 2: Comprende</span>
+                    <span class="text-gray-500 text-sm">9 / 15</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

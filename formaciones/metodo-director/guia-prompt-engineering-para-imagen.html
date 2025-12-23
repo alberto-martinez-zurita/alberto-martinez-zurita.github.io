@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Prompt Engineering Visual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Neutral Tech (Stone background, Slate text, Teal accents) -->
+    <!-- Application Structure Plan: A tabbed, single-page application structure was chosen to manage the density of the technical information. This breaks the content into logical, self-contained sections (Inicio, Fundamentos, Anatomía, Técnicas Avanzadas, Evaluación, Operativa), allowing users—from beginners to experts—to navigate directly to their area of interest without excessive scrolling. This non-linear exploration path is superior to a simple document layout for usability and information retention. Key interactions include click-to-reveal definitions, an interactive prompt anatomy diagram, and a comparative chart for the source guides. -->
+    <!-- Visualization & Content Choices: Report Info: Comparative analysis of 3 guides. Goal: Compare. Viz: Horizontal Bar Chart (Chart.js). Interaction: Tooltips. Justification: A bar chart is the clearest way to visually represent a quantitative comparison. | Report Info: Cinematography terms. Goal: Inform/Define. Viz: HTML/CSS cards. Interaction: Click-to-reveal. Justification: Hides complexity until the user requests it, keeping the UI clean. | Report Info: CI/CD process. Goal: Organize/Show Process. Viz: HTML/CSS flowchart. Interaction: Click-to-highlight stages. Justification: Visually represents a sequence of steps more effectively than text alone. All visualizations are built with Canvas or HTML/CSS, adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4; 
+            color: #334155;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active {
+            border-bottom-color: #0d9488;
+            color: #0d9488;
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            color: #14b8a6;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px;
+            max-height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 300px;
+                max-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="min-h-screen">
+        <header class="bg-stone-100 shadow-sm sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <h1 class="text-xl sm:text-2xl font-bold text-teal-700">Guía Interactiva de Prompt Engineering Visual</h1>
+                    <nav class="hidden md:flex space-x-6 lg:space-x-8 text-sm sm:text-base">
+                        <a href="#inicio" class="nav-link active">Inicio</a>
+                        <a href="#fundamentos" class="nav-link">Fundamentos</a>
+                        <a href="#anatomia" class="nav-link">Anatomía</a>
+                        <a href="#avanzadas" class="nav-link">Técnicas Avanzadas</a>
+                        <a href="#evaluacion" class="nav-link">Evaluación</a>
+                        <a href="#operativa" class="nav-link">Operativa</a>
+                    </nav>
+                     <div class="md:hidden">
+                        <select id="mobile-nav" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
+                            <option value="inicio">Inicio</option>
+                            <option value="fundamentos">Fundamentos</option>
+                            <option value="anatomia">Anatomía</option>
+                            <option value="avanzadas">Técnicas Avanzadas</option>
+                            <option value="evaluacion">Evaluación</option>
+                            <option value="operativa">Operativa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            
+            <section id="inicio" class="content-section active">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">De la Teoría a la Producción: Una Guía Interactiva</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Esta aplicación sintetiza los hallazgos clave de tres guías de referencia para ofrecer un manual práctico y orientado a la producción para la ingeniería de prompts visuales en 2025.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <p class="text-4xl font-bold text-teal-600">67%</p>
+                        <p class="mt-2 text-slate-600">Mejora media de productividad con marcos de prompts estructurados.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <p class="text-4xl font-bold text-teal-600">434%</p>
+                        <p class="mt-2 text-slate-600">Aumento en ofertas de empleo para ingenieros de prompts desde 2023.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <p class="text-4xl font-bold text-teal-600">$375k</p>
+                        <p class="mt-2 text-slate-600">Salario promedio para roles senior en Prompt Engineering.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Análisis Comparativo de Guías Fuente</h3>
+                    <p class="text-center text-slate-600 mb-6">Visualización de la puntuación de las guías base analizadas, destacando la "Guía Integral Avanzado" como la más completa para entornos de producción, con una calificación de 9.52 sobre 10.</p>
+                    <div class="chart-container">
+                        <canvas id="guidesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fundamentos" class="content-section">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-8">Fundamentos Visuales</h2>
+                <p class="mb-10 text-lg text-slate-600">Para controlar la generación de imágenes, es crucial dominar tanto los conceptos de los modelos de IA como el lenguaje técnico de la fotografía y el cine. Esta sección explora la relación entre texto e imagen y proporciona un glosario interactivo de los términos que otorgan un control preciso sobre el resultado visual.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Modelos y Backends</h3>
+                        <p class="text-slate-600">Conocer las fortalezas de cada modelo es clave. Algunos, como Midjourney, son excelentes para estilos artísticos, mientras que otros como SDXL o Imagen ofrecen un control más granular para fotorrealismo y composición.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-teal-100 text-teal-800 text-sm font-medium px-2.5 py-0.5 rounded-full">SDXL/SD3</span>
+                            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full">DALL·E 3</span>
+                            <span class="bg-purple-100 text-purple-800 text-sm font-medium px-2.5 py-0.5 rounded-full">Midjourney</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full">Imagen</span>
+                             <span class="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded-full">Firefly</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Semántica Latente</h3>
+                        <p class="text-slate-600">Los modelos no "entienden" el texto como los humanos. Traducen palabras a un espacio de conceptos latente. La ambigüedad en el texto (ej. "banco") genera incertidumbre en la imagen. La precisión es fundamental.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2 lg:col-span-1">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Condicionamiento</h3>
+                        <p class="text-slate-600">Cada palabra en el prompt "condiciona" o guía la generación. Los términos más importantes deben ir al principio. Ténicas como el weighting permiten dar más o menos fuerza a cada concepto.</p>
+                    </div>
+                </div>
+
+                <div id="cinematography-glossary" class="mt-12 bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-6">Glosario Interactivo de Cinematografía</h3>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button data-term="lente" class="glossary-btn bg-stone-200 hover:bg-teal-100 text-slate-700 font-medium py-2 px-4 rounded-lg">Lente</button>
+                        <button data-term="apertura" class="glossary-btn bg-stone-200 hover:bg-teal-100 text-slate-700 font-medium py-2 px-4 rounded-lg">Apertura / DOF</button>
+                        <button data-term="iluminacion" class="glossary-btn bg-stone-200 hover:bg-teal-100 text-slate-700 font-medium py-2 px-4 rounded-lg">Iluminación</button>
+                        <button data-term="encuadre" class="glossary-btn bg-stone-200 hover:bg-teal-100 text-slate-700 font-medium py-2 px-4 rounded-lg">Encuadre / Plano</button>
+                        <button data-term="angulo" class="glossary-btn bg-stone-200 hover:bg-teal-100 text-slate-700 font-medium py-2 px-4 rounded-lg">Ángulo</button>
+                    </div>
+                    <div id="glossary-display" class="bg-stone-50 p-6 rounded-lg min-h-[150px]">
+                        <p class="text-slate-500">Selecciona un término para ver su descripción y efecto en la imagen.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="anatomia" class="content-section">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-8">Anatomía de un Prompt Visual Efectivo</h2>
+                <p class="mb-10 text-lg text-slate-600">Un prompt bien estructurado es predecible y controlable. Sigue una jerarquía lógica que va de lo general a lo específico, del sujeto principal a los detalles técnicos de la "cámara virtual". Usar esta estructura reduce la ambigüedad y aumenta la fidelidad al concepto deseado.</p>
+                
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-6">Jerarquía del Prompt</h3>
+                    <div class="flex flex-col md:flex-row md:flex-wrap gap-2 text-center text-sm">
+                        <div class="flex-1 bg-teal-100 text-teal-800 p-3 rounded-lg font-semibold">1. Sujeto</div>
+                        <div class="self-center text-slate-400 font-bold mx-2">&rarr;</div>
+                        <div class="flex-1 bg-blue-100 text-blue-800 p-3 rounded-lg font-semibold">2. Atributos</div>
+                        <div class="self-center text-slate-400 font-bold mx-2">&rarr;</div>
+                        <div class="flex-1 bg-green-100 text-green-800 p-3 rounded-lg font-semibold">3. Entorno</div>
+                        <div class="self-center text-slate-400 font-bold mx-2">&rarr;</div>
+                        <div class="flex-1 bg-purple-100 text-purple-800 p-3 rounded-lg font-semibold">4. Iluminación</div>
+                         <div class="w-full h-px md:hidden my-2"></div>
+                        <div class="self-center text-slate-400 font-bold mx-2 hidden md:block">&rarr;</div>
+                        <div class="flex-1 bg-yellow-100 text-yellow-800 p-3 rounded-lg font-semibold">5. Estilo/Medio</div>
+                        <div class="self-center text-slate-400 font-bold mx-2">&rarr;</div>
+                        <div class="flex-1 bg-red-100 text-red-800 p-3 rounded-lg font-semibold">6. Cámara/Lente</div>
+                        <div class="self-center text-slate-400 font-bold mx-2">&rarr;</div>
+                        <div class="flex-1 bg-gray-100 text-gray-800 p-3 rounded-lg font-semibold">7. Parámetros</div>
+                    </div>
+                    <div class="mt-6 bg-stone-50 p-4 rounded-lg">
+                        <p class="text-slate-700"><span class="font-semibold">Ejemplo:</span> <span class="text-teal-700">Un astronauta</span> <span class="text-blue-700">con un traje reflectante,</span> <span class="text-green-700">flotando en una nebulosa cósmica,</span> <span class="text-purple-700">iluminado por una estrella de neutrones azul,</span> <span class="text-yellow-700">pintura al óleo digital,</span> <span class="text-red-700">lente gran angular de 35mm.</span></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Bueno vs. Ambiguo</h3>
+                        <p class="text-slate-600 mb-4">La especificidad es la clave para obtener resultados predecibles.</p>
+                        <div class="border-t pt-4">
+                            <p class="font-semibold text-red-600">✗ Ambiguo:</p>
+                            <p class="text-sm text-slate-700 mb-2">"Un hombre en un banco."</p>
+                            <p class="font-semibold text-green-600">✓ Bueno:</p>
+                            <p class="text-sm text-slate-700">"Un anciano sentado en un banco de madera de un parque, alimentando palomas, fotografía callejera, lente de 50mm."</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Prompts Negativos</h3>
+                        <p class="text-slate-600">Utiliza prompts negativos (`--no` o `negative_prompt`) para eliminar elementos no deseados. Son cruciales para limpiar artefactos, evitar estilos no deseados o corregir errores comunes del modelo (como manos con 6 dedos).</p>
+                        <p class="mt-4 bg-red-50 text-red-700 p-3 rounded-lg text-sm"><span class="font-semibold">Ejemplo Negativo:</span> --no malformado, mala anatomía, manos feas, texto, marcas de agua, borroso, baja calidad</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="avanzadas" class="content-section">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-8">Técnicas Avanzadas de Control Visual</h2>
+                 <p class="mb-10 text-lg text-slate-600">Más allá de la estructura básica, existen técnicas avanzadas para un control casi total sobre la composición, el estilo y la coherencia de la imagen. Estas herramientas son fundamentales para flujos de trabajo profesionales y la generación de contenido específico.</p>
+                <div id="advanced-accordion" class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-slate-800 text-lg flex justify-between items-center hover:bg-stone-50">
+                            Prompt Weighting y Embeddings
+                            <span class="accordion-icon text-teal-600 font-bold text-2xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                            <div class="p-5 border-t">
+                                <p class="text-slate-600">Permite dar más o menos importancia a ciertas palabras. La sintaxis varía (ej. `(palabra:1.4)` en SD, `palabra::1.4` en Midjourney). Un peso > 1 aumenta su influencia, < 1 la reduce. Los embeddings (como en Textual Inversion) permiten "enseñar" un nuevo concepto o estilo al modelo con unas pocas imágenes de ejemplo, que luego puede ser invocado con una sola palabra clave.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-slate-800 text-lg flex justify-between items-center hover:bg-stone-50">
+                            ControlNet e Image-to-Image (i2i)
+                             <span class="accordion-icon text-teal-600 font-bold text-2xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                            <div class="p-5 border-t">
+                                <p class="text-slate-600">ControlNet es una técnica revolucionaria que condiciona la generación de la imagen a partir de una imagen de entrada (ej. un boceto, un mapa de profundidad, una pose humana). Permite un control compositivo sin precedentes. El flujo i2i estándar usa una imagen inicial y un prompt para generar variaciones, conservando la composición y colores generales. Ajustar el `denoising strength` controla cuánto se aleja de la imagen original.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-slate-800 text-lg flex justify-between items-center hover:bg-stone-50">
+                            Ajuste Fino de Parámetros
+                             <span class="accordion-icon text-teal-600 font-bold text-2xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                            <div class="p-5 border-t">
+                                <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                                    <li><strong>CFG Scale (Classifier-Free Guidance):</strong> Controla la adherencia al prompt. Valores bajos (3-6) dan más creatividad al modelo. Valores altos (8-15) fuerzan una interpretación más literal, pero pueden causar sobre-saturación.</li>
+                                    <li><strong>Steps (Pasos de Muestreo):</strong> Número de iteraciones. Más pasos suelen dar más detalle, pero con rendimientos decrecientes. 20-30 es un buen punto de partida para la mayoría de samplers.</li>
+                                    <li><strong>Sampler:</strong> El algoritmo para el proceso de "denoising". `Euler a` es rápido y creativo. `DPM++ 2M Karras` es un estándar de alta calidad. `LCM` es extremadamente rápido para previsualizaciones.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="evaluacion" class="content-section">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-8">Evaluación y Métricas Visuales</h2>
+                <p class="mb-10 text-lg text-slate-600">En un entorno de producción, la calidad visual no puede ser subjetiva. Se utilizan métricas cuantitativas para evaluar la coherencia, la estética y la fidelidad de las imágenes generadas. Este proceso es clave para el testing A/B de prompts y para mantener la calidad del sistema a lo largo del tiempo.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">CLIP Similarity</h3>
+                        <p class="text-slate-600">Mide la similitud semántica entre el prompt (texto) y la imagen generada. Un score alto indica una buena correspondencia conceptual. Es la métrica principal para validar la fidelidad a las instrucciones.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Aesthetic Score</h3>
+                        <p class="text-slate-600">Un modelo entrenado para predecir qué tan "estéticamente agradable" es una imagen para un humano. Se usa para filtrar automáticamente las generaciones de baja calidad visual o poco atractivas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">FID (Fréchet Inception Distance)</h3>
+                        <p class="text-slate-600">Compara la distribución de las imágenes generadas con un set de datos de imágenes reales. Un FID más bajo significa que las imágenes son más realistas y diversas. Mide la calidad general del modelo.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">LPIPS (Learned Perceptual)</h3>
+                        <p class="text-slate-600">Mide la similitud perceptual entre dos imágenes. Es útil en tareas i2i para asegurar que la imagen de salida no se desvía demasiado de la de entrada en términos de estructura y contenido.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Consistencia de Atributos</h3>
+                        <p class="text-slate-600">Verifica la presencia de objetos o características específicas mencionadas en el prompt. Se puede automatizar con modelos de detección de objetos o VLMs (Vision Language Models).</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">LLM-as-a-Judge</h3>
+                        <p class="text-slate-600">Se utiliza un VLM potente (como GPT-4o o Gemini) para "juzgar" la calidad de una imagen con respecto a una checklist de criterios complejos (ej. "¿La iluminación coincide con 'luz de mañana dorada'?").</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="operativa" class="content-section">
+                 <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-8">Operativa de Producción (LLMOps/VLM Ops)</h2>
+                 <p class="mb-10 text-lg text-slate-600">Integrar la ingeniería de prompts en un ciclo de vida de desarrollo de software requiere herramientas y procesos específicos. La operativa de producción (Ops) se encarga de versionar, testear, desplegar y monitorizar los prompts como si fueran código, asegurando la robustez y escalabilidad del sistema.</p>
+
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-8 text-center">CI/CD para Prompts Visuales</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+                        <div class="flex-1 p-4 bg-stone-100 rounded-lg">
+                            <div class="text-teal-600 text-2xl mb-2">①</div>
+                            <h4 class="font-semibold text-slate-800">Versionado (Git)</h4>
+                            <p class="text-sm text-slate-600">Las plantillas de prompts se almacenan en un repositorio. Cada cambio sigue un versionado semántico.</p>
+                        </div>
+                        <div class="text-2xl text-slate-400 p-2">&rarr;</div>
+                        <div class="flex-1 p-4 bg-stone-100 rounded-lg">
+                            <div class="text-teal-600 text-2xl mb-2">②</div>
+                            <h4 class="font-semibold text-slate-800">Batch Testing</h4>
+                            <p class="text-sm text-slate-600">Un pipeline automático genera cientos de imágenes y calcula métricas (CLIP, Aesthetic Score) contra umbrales definidos.</p>
+                        </div>
+                        <div class="text-2xl text-slate-400 p-2">&rarr;</div>
+                        <div class="flex-1 p-4 bg-stone-100 rounded-lg">
+                             <div class="text-teal-600 text-2xl mb-2">③</div>
+                            <h4 class="font-semibold text-slate-800">Despliegue (Canary)</h4>
+                            <p class="text-sm text-slate-600">El nuevo prompt se despliega a un % pequeño de usuarios. Se monitorizan las métricas en tiempo real.</p>
+                        </div>
+                         <div class="text-2xl text-slate-400 p-2">&rarr;</div>
+                        <div class="flex-1 p-4 bg-stone-100 rounded-lg">
+                             <div class="text-teal-600 text-2xl mb-2">④</div>
+                            <h4 class="font-semibold text-slate-800">Rollout / Rollback</h4>
+                            <p class="text-sm text-slate-600">Si las métricas son positivas, se despliega al 100%. Si no, se revierte automáticamente (rollback).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Seguridad y Ética</h3>
+                        <p class="text-slate-600">La operativa de prompts debe incluir barreras de seguridad (guardrails) para mitigar sesgos, prevenir la generación de contenido dañino y detectar jailbreaks. Se usan prompts defensivos y clasificadores para filtrar entradas y salidas problemáticas.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Integraciones y Herramientas</h3>
+                        <p class="text-slate-600">Los flujos de trabajo se implementan usando APIs de modelos (OpenAI, Google) o interfaces de código abierto como ComfyUI o Automatic1111, que permiten construir grafos de generación complejos y automatizar los pipelines de testing y generación.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNav = document.getElementById('mobile-nav');
+            const contentSections = document.querySelectorAll('.content-section');
+            const glossaryData = {
+                lente: {
+                    title: 'Lente / Distancia Focal',
+                    description: 'Controla el campo de visión y la distorsión. Un gran angular (ej. 24mm) captura una escena amplia, ideal para paisajes. Un teleobjetivo (ej. 200mm) comprime la perspectiva y aísla al sujeto, perfecto para retratos.',
+                },
+                apertura: {
+                    title: 'Apertura y Profundidad de Campo (DOF)',
+                    description: 'Se controla con el "f-stop" (ej. f/1.8, f/16). Una apertura grande (número f bajo, ej. f/1.8) crea una profundidad de campo reducida (bokeh), desenfocando el fondo. Una apertura pequeña (número f alto, ej. f/16) mantiene todo enfocado.',
+                },
+                iluminacion: {
+                    title: 'Iluminación',
+                    description: 'Define el ambiente y el volumen. "Luz suave de estudio" es difusa y favorecedora. "Luz dura del mediodía" crea sombras fuertes. "Hora dorada" proporciona una luz cálida y cinematográfica. "Rim lighting" o contraluz siluetea al sujeto.',
+                },
+                encuadre: {
+                    title: 'Encuadre y Plano',
+                    description: 'Determina qué parte del sujeto se ve. "Plano general extremo" (Extreme long shot) muestra un paisaje vasto. "Primer plano" (Close-up) se centra en el rostro. "Plano detalle" (Extreme close-up) muestra una parte pequeña, como un ojo.',
+                },
+                angulo: {
+                    title: 'Ángulo de Cámara',
+                    description: 'La posición de la "cámara". Un "ángulo bajo" (low-angle shot) hace que el sujeto parezca poderoso. Un "ángulo alto" o "picado" (high-angle shot) puede hacerlo parecer vulnerable. "Plano cenital" (overhead shot) es desde arriba.',
+                },
+            };
+            const glossaryDisplay = document.getElementById('glossary-display');
+            const glossaryButtons = document.querySelectorAll('.glossary-btn');
+
+            function showTab(tabId) {
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                document.getElementById(tabId).classList.add('active');
+                const activeLink = document.querySelector(`.nav-link[href="#${tabId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+                if (mobileNav.value !== tabId) {
+                    mobileNav.value = tabId;
+                }
+            }
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('href').substring(1);
+                    showTab(tabId);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            mobileNav.addEventListener('change', function() {
+                const tabId = this.value;
+                showTab(tabId);
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            glossaryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const term = this.dataset.term;
+                    const data = glossaryData[term];
+                    glossaryDisplay.innerHTML = `
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">${data.title}</h4>
+                        <p class="text-slate-600">${data.description}</p>
+                    `;
+                });
+            });
+
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(45deg)';
+                    }
+                });
+            });
+
+            const ctx = document.getElementById('guidesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Guía Definitiva', 'Guía Experta Multimodal', 'Guía Integral Avanzado'],
+                    datasets: [{
+                        label: 'Calificación (sobre 10)',
+                        data: [8.50, 9.15, 9.52],
+                        backgroundColor: [
+                            'rgba(148, 163, 184, 0.6)',
+                            'rgba(99, 102, 241, 0.6)',
+                            'rgba(13, 148, 136, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(148, 163, 184, 1)',
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(13, 148, 136, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x.toFixed(2);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const initialHash = window.location.hash;
+            if (initialHash) {
+                const tabId = initialHash.substring(1);
+                if (document.getElementById(tabId)) {
+                    showTab(tabId);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

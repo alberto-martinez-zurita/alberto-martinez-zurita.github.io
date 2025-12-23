@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conoce al Ponente: Alberto Martínez Zurita</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #181B24;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-frame {
+            width: 85%;
+            height: 75%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            background-color: #181B24;
+        }
+        .left-content {
+            flex: 40%;
+            padding: 60px 20px 60px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-content {
+            flex: 60%;
+            padding: 20px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Para permitir scroll si el contenido es mucho */
+            overflow-y: auto;
+        }
+        /* Títulos de la izquierda */
+        .title-proposed {
+            font-size: 2.0rem; /* Ajustado */
+            font-weight: 500;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+        .title-objectives {
+            font-size: 3.0rem; /* Ajustado */
+            font-weight: 800;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .slide-subtitle {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #B165FB;
+            font-family: 'Nunito', sans-serif;
+            margin-bottom: 30px;
+        }
+        .left-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #A0A0A0;
+            max-width: 95%;
+        }
+
+        /* AÑADIDO: Estilo para la foto de perfil circular */
+        .profile-image-container {
+            width: 170px;
+            height: 170px;
+            /*border-radius: 50%;*/
+            border: 4px solid #B165FB;
+            /*overflow: hidden;*/
+            margin: 0 auto 15px auto; /* Centrada */
+            box-shadow: 0 0 20px rgba(177, 101, 251, 0.4);
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+                /* AÑADIDO: Estilo para la foto de la Hackathon */
+        .hackathon-image-container {
+            width: 30%;
+            height: auto;   
+            margin-top: 15px;
+            border: 2px solid rgba(177, 101, 251, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .hackathon-image {
+            display: block;
+        }
+
+        
+        /* NUEVOS ESTILOS PARA LA LISTA DE BULLETS */
+        .bio-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+            font-size: 1.05rem; /* Ajustado */
+            line-height: 1.7; /* Más espaciado */
+            /* CAMBIO DE COLOR A UNO MÁS CLARO */
+            color: #D1D5DB; 
+        }
+        .bio-list li {
+            margin-bottom: 15px; /* Espacio entre items */
+            padding-left: 35px; /* Espacio para el icono */
+            position: relative;
+        }
+        .bio-list li:last-child {
+            margin-bottom: 0;
+        }
+        .bio-list li i {
+            color: #B165FB; /* Color del icono */
+            position: absolute;
+            left: 0;
+            top: 6px; /* Centrado vertical */
+            font-size: 1.2em; /* Tamaño del icono */
+            width: 25px; /* Ancho fijo para alinear */
+            text-align: center;
+        }
+
+        .purple-divider {
+            width: 5px;
+            background-color: #B165FB;
+            margin: 0 20px;
+        }
+        .curve-decoration {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .top-right {
+            top: 0;
+            right: 0;
+        }
+        .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+        .company-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #A0A0A0;
+        }
+        .highlight {
+            color: #B165FB;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Curved line decorations -->
+<svg class="curve-decoration top-right" height="300" viewbox="0 0 400 300" width="400" xmlns="http://www.w3.org/2000/svg">
+<path d="M300,0 C325,25 350,50 375,75 C400,100 425,125 450,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M310,0 C335,25 360,50 385,75 C410,100 435,125 460,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M320,0 C345,25 370,50 395,75 C420,100 445,125 470,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M330,0 C355,25 380,50 405,75 C430,100 455,125 480,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M340,0 C365,25 390,50 415,75 C440,100 465,125 490,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M350,0 C375,25 400,50 425,75 C450,100 475,125 500,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M360,0 C385,25 410,50 435,75 C460,100 485,125 510,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+</svg>
+<svg class="curve-decoration bottom-right" height="300" viewbox="0 0 400 300" width="400" xmlns="http://www.w3.org/2000/svg">
+<path d="M250,150 C275,175 300,200 325,225 C350,250 375,275 400,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M260,150 C285,175 310,200 335,225 C360,250 385,275 410,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M270,150 C295,175 320,200 345,225 C370,250 395,275 420,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M280,150 C305,175 330,200 355,225 C380,250 405,275 430,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M290,150 C315,175 340,200 365,225 C390,250 415,275 440,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M300,150 C325,175 350,200 375,225 C400,250 425,275 450,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M310,150 C335,175 360,200 385,225 C410,250 435,275 460,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+</svg>
+<div class="content-frame">
+<div class="left-content">
+<h1 class="title-proposed">Conoce a tu Guía</h1>
+<h1 class="title-objectives">Alberto Martínez Zurita</h1>
+<h2 class="slide-subtitle">Transmitiendo pasión y momentum por la IA</h2>
+<p class="left-description" style="display: flex;justify-content: center;">
+    <div class="profile-image-container">
+        <!-- CAMBIA ESTO por tu foto de perfil -->
+        <img src="amz.jpg" alt="Foto de Alberto Martínez Zurita" class="profile-image"/>
+    </div>
+</p>
+</div>
+<div class="purple-divider"></div>
+<div class="right-content">
+<!-- 
+    Contenido de la derecha con la lista de bullet points
+    y el color de texto corregido.
+-->
+<ul class="bio-list">
+    <li><i class="fas fa-microchip"></i> Ingeniero Superior en Informática.</li>
+    <li><i class="fas fa-calendar-alt"></i> Más de 20 años de experiencia profesional.</li>
+    <li><i class="fas fa-sitemap"></i> Más de 15 años como arquitecto informático.</li>
+    <li><i class="fas fa-award"></i> Programa de Formación IA Generativa de Google completado.</li>
+    <li><i class="fas fa-handshake"></i> Ponente del programa Ágora desde sus inicios.</li>
+    <li><i class="fas fa-brain"></i> Especial interés y motivación en la Inteligencia Artificial, abarcando desde el conocimiento profundo hasta la ética y el impacto social.</li>
+    <li><i class="fas fa-users-rays"></i> Participación en la Hackathon para la Inclusión Financiera.     <div class="hackathon-image-container" >
+    <!-- CAMBIA ESTO por tu foto de la hackathon -->
+    <img src="foto-hackathon.jpg" alt="Foto de grupo de la Hackathon" class="hackathon-image" style="display: flex;justify-content: center;">
+    </div></li>
+
+</ul>
+
+
+</div>
+
+</div>
+
+
+</body>
+</html>
+

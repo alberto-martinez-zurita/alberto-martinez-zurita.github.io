@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligencia Artificial: Entiende, Comprende y Aprende</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            background-color: #3d3e41;
+            color: white;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- SIDEBAR (Sin cambios mayores) --- */
+        .sidebar {
+            width: 320px;
+            background-color: #11131A;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #B165FB;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .pdf-button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #B165FB;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .pdf-button:hover { background-color: #c98eff; }
+        .pdf-button:disabled { background-color: #555; color: #aaa; cursor: not-allowed; }
+        #downloadAllPdfButton { margin-bottom: 20px; }
+
+        .sidebar ul { list-style: none; padding: 0; margin: 0; }
+
+        /* Estilos de Menú */
+        .sidebar .submenu li a {
+            display: block;
+            padding: 10px 30px 10px 50px;
+            color: #d1d5db;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+        .sidebar .submenu li a:hover { background-color: #1f2937; color: white; }
+        .sidebar .submenu li a.active { background-color: #2c213a; color: white; font-weight: 600; border-left: 3px solid #B165FB; }
+
+        .simple-link-header {
+            display: block;
+            padding: 14px 25px;
+            border-left: 3px solid transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+        .simple-link-header:hover { background-color: #1f2937; }
+        .simple-link-header.active { border-left: 3px solid #B165FB; color: #B165FB; }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            border-left: 3px solid transparent;
+        }
+        .category-header:hover { background-color: #1f2937; }
+        .category-header.active { border-left: 3px solid #B165FB; color: #B165FB; }
+        .category-header i { transition: transform 0.3s ease; font-size: 12px; }
+        .submenu { list-style: none; padding: 0; margin: 0; display: none; background-color: rgba(0,0,0,0.1); }
+        .submenu.open { display: block; }
+        .category-header.open i { transform: rotate(90deg); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            /* CAMBIO: Centrar el contenido si es muy ancho */
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        /* --- ESTILOS IFRAME ADAPTABLES --- */
+.iframe-container {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 240, 0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    
+    /* ESTO ES LO IMPORTANTE: */
+    width: 100%;
+    max-width: 1280px; 
+    height: auto;       /* Deja que crezca según el contenido */
+    display: block;     
+    overflow: hidden;   
+}
+
+iframe {
+    width: 100%;
+    /* La altura se calculará por JS, inicialízala en un valor pequeño */
+    height: 100px; 
+    border: none;
+    display: block;
+    overflow: hidden;
+}
+
+        /* Scrollbars */
+        body::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track { background: #11131A; }
+        body::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb { background-color: #B165FB; border-radius: 20px; border: 2px solid #11131A; }
+        body::-webkit-scrollbar-thumb:hover, .sidebar::-webkit-scrollbar-thumb:hover { background-color: #c98eff; }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { position: static; width: 100%; height: auto; padding: 15px 0; }
+            .sidebar ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .sidebar ul li a { padding: 8px 15px; font-size: 0.9em; border: none; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Inteligencia Artificial</h2>
+        <button id="downloadPdfButton" class="pdf-button">Descargar Slide (PDF)</button>
+        <button id="downloadAllPdfButton" class="pdf-button">Descargar TODO (PDF)</button>
+        <nav>
+            <ul id="navList"></ul>
+        </nav>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <p style="text-align: center; color: #666;">Cargando contenido...</p>
+    </main>
+
+    <script>
+        const totalPages = 15;
+        const navList = document.getElementById('navList');
+        const mainContent = document.getElementById('mainContent');
+        const iframeReferences = []; 
+
+        function getPageTitle(pageNumber) {
+            const titles = {
+                1: "De la Ficción a la Realidad",
+                2: "¿Qué es la IA?",
+                3: "Determinismo vs No Determinismo",
+                4: "¿Cómo Funciona la IA?",
+                5: "¿Cómo Aprende la IA?",
+                6: "Tipos de IA",
+                7: "Comprender su Impacto",
+                8: "Contexto Histórico",
+                9: "Impacto en las Personas",
+                10: "Respuesta de los Gobiernos",
+                11: "Futuro de la IA y Cómo Prepararse",
+                12: "Herramientas de IA",
+                13: "Prompt Engineering",
+                14: "Uso Ético y Responsable de la IA",
+                15: "Conclusiones y Futuro"
+            };
+            return titles[pageNumber] || `Página ${pageNumber}`;
+        }
+
+        const menuStructure = [
+            { title: "Módulo 1: Introducción", children: [{id:1, title:"Ficción a Realidad"}, {id:2, title:"¿Qué es la IA?"}, {id:3, title:"Determinismo"}] },
+            { title: "Módulo 2: Mecánica", children: [{id:4, title:"¿Cómo Funciona?"}, {id:5, title:"¿Cómo Aprende?"}, {id:6, title:"Tipos de IA"}] },
+            { title: "Módulo 3: Impacto", children: [{id:7, title:"Comprender Impacto"}, {id:8, title:"Historia"}, {id:9, title:"Personas"}, {id:10, title:"Gobiernos"}] },
+            { title: "Módulo 4: Herramientas", children: [{id:11, title:"Futuro y Preparación"}, {id:12, title:"Herramientas"}, {id:13, title:"Prompt Engineering"}] },
+            { title: "Módulo 5: Cierre", children: [{id:14, title:"Ética"}, {id:15, title:"Conclusiones"}] }
+        ];
+
+        /* --- CAMBIO: Lógica de redimensionamiento dinámico --- */
+        function resizeIframe(iframe) {
+            try {
+                // Accedemos al contenido del iframe
+                const innerDoc = iframe.contentWindow.document;
+                const innerBody = innerDoc.body;
+                const innerHtml = innerDoc.documentElement;
+
+                // 1. Resetear altura temporalmente para permitir que se encoja si es necesario
+                iframe.style.height = 'auto';
+                
+                // 2. Calcular la altura real del contenido. 
+                // Tomamos el máximo de varias propiedades para asegurar compatibilidad
+                const height = Math.max( 
+                    innerBody.scrollHeight, 
+                    innerBody.offsetHeight, 
+                    innerHtml.clientHeight, 
+                    innerHtml.scrollHeight, 
+                    innerHtml.offsetHeight 
+                );
+
+                // 3. Aplicar la nueva altura (+ unos pixeles de buffer por si acaso)
+                iframe.style.height = (height + 5) + 'px';
+                
+                // También ajustamos el contenedor padre si es necesario, aunque con height:auto debería bastar
+                iframe.parentElement.style.height = 'auto';
+
+            } catch (e) {
+                // Esto pasa si intentas cargar una web externa (CORS), pero no pasará con archivos locales
+                console.warn('No se pudo redimensionar automáticamente (posible bloqueo CORS):', e);
+                // Fallback a altura fija
+                iframe.style.height = '720px';
+            }
+        }
+
+        function createMenu() {
+            navList.innerHTML = '';
+            menuStructure.forEach(item => {
+                const li = document.createElement('li');
+                if (item.children) {
+                    li.classList.add('category');
+                    const header = document.createElement('div');
+                    header.classList.add('category-header');
+                    header.innerHTML = `<span>${item.title}</span><i class="fas fa-plus"></i>`;
+                    const submenu = document.createElement('ul');
+                    submenu.classList.add('submenu');
+                    
+                    item.children.forEach(child => {
+                        const childLi = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `#slide${String(child.id).padStart(2, '0')}`;
+                        link.textContent = child.title;
+                        link.setAttribute('data-page', child.id);
+                        link.addEventListener('click', handleMenuLinkClick);
+                        childLi.appendChild(link);
+                        submenu.appendChild(childLi);
+                    });
+                    
+                    li.appendChild(header);
+                    li.appendChild(submenu);
+                    
+                    header.addEventListener('click', () => {
+                        const isAlreadyOpen = submenu.classList.contains('open');
+                        const allSubmenus = navList.querySelectorAll('.submenu.open');
+                        allSubmenus.forEach(s => {
+                            s.classList.remove('open');
+                            const h = s.previousElementSibling;
+                            h.classList.remove('open');
+                            h.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+                        });
+                        if (!isAlreadyOpen) {
+                            submenu.classList.add('open');
+                            header.classList.add('open');
+                            header.querySelector('i').classList.replace('fa-plus', 'fa-minus');
+                        }
+                    });
+                } else {
+                    const link = document.createElement('a');
+                    link.href = `#slide${String(item.id).padStart(2, '0')}`;
+                    link.textContent = item.title;
+                    link.setAttribute('data-page', item.id);
+                    link.classList.add('simple-link-header'); 
+                    link.addEventListener('click', handleMenuLinkClick);
+                    li.appendChild(link);
+                }
+                navList.appendChild(li);
+            });
+        }
+        
+        function handleMenuLinkClick(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function createAndLoadIframe(pageNumber) {
+            const fileName = `${String(pageNumber).padStart(2, '0')}.html`;
+            const sectionId = `slide${String(pageNumber).padStart(2, '0')}`;
+
+            const container = document.createElement('section');
+            container.id = sectionId;
+            container.classList.add('iframe-container');
+            mainContent.appendChild(container); 
+
+            const iframe = document.createElement('iframe');
+            iframe.src = fileName;
+            iframe.id = `iframe-${pageNumber}`;
+            iframe.title = getPageTitle(pageNumber); 
+            iframe.scrolling = "no"; 
+            
+            // CAMBIO: Ejecutar resize al cargar
+            iframe.onload = () => {
+                resizeIframe(iframe);
+                // Opcional: Volver a redimensionar tras un pequeño delay por si hay imágenes cargando dentro
+                setTimeout(() => resizeIframe(iframe), 1500);
+            };
+
+            iframe.onerror = () => { 
+                container.innerHTML = `<p style="color: #ff8a8a; text-align: center; padding: 50px;">Error: No se pudo cargar ${fileName}.</p>`;
+            };
+            container.appendChild(iframe);
+            iframeReferences.push({ id: sectionId, element: container }); 
+        }
+
+        function getCurrentSlideIndex() {
+            let currentActiveSectionId = '';
+            const scrollThreshold = window.innerHeight * 0.3;
+            for (let i = iframeReferences.length - 1; i >= 0; i--) {
+                const section = iframeReferences[i].element;
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= scrollThreshold && rect.bottom > 0) {
+                    currentActiveSectionId = section.id;
+                    break;
+                }
+            }
+            if (!currentActiveSectionId && iframeReferences.length > 0 && window.scrollY < 200) currentActiveSectionId = iframeReferences[0].id;
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && iframeReferences.length > 0) currentActiveSectionId = iframeReferences[iframeReferences.length - 1].id;
+            
+            for (let i = 0; i < iframeReferences.length; i++) {
+                if (iframeReferences[i].id === currentActiveSectionId) return i;
+            }
+            return 0;
+        }
+
+        function navigateToNextSlide() {
+            const nextIndex = Math.min(getCurrentSlideIndex() + 1, iframeReferences.length - 1); 
+            if (iframeReferences[nextIndex]) iframeReferences[nextIndex].element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function navigateToPreviousSlide() {
+            const prevIndex = Math.max(getCurrentSlideIndex() - 1, 0); 
+            if (iframeReferences[prevIndex]) iframeReferences[prevIndex].element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        async function loadAllIframePages() {
+            mainContent.innerHTML = ''; 
+            createMenu(); 
+            for (let i = 1; i <= totalPages; i++) {
+                createAndLoadIframe(i); 
+            }
+            window.addEventListener('scroll', setActiveNavLink);
+            setActiveNavLink();
+        }
+
+        function setActiveNavLink() {
+            // Lógica idéntica a la anterior versión pero condensada
+            const idx = getCurrentSlideIndex();
+            const currentActiveSectionId = iframeReferences[idx] ? iframeReferences[idx].id : '';
+
+            const navLinks = navList.querySelectorAll('a');
+            const categoryHeaders = navList.querySelectorAll('.category-header');
+            navLinks.forEach(link => link.classList.remove('active'));
+            categoryHeaders.forEach(header => header.classList.remove('active'));
+
+            const activeLink = navList.querySelector(`a[href="#${currentActiveSectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                const parentSubmenu = activeLink.closest('.submenu');
+                if (parentSubmenu) {
+                    const header = parentSubmenu.previousElementSibling;
+                    if (header) header.classList.add('active');
+                    if (!parentSubmenu.classList.contains('open')) {
+                        const allSubmenus = navList.querySelectorAll('.submenu.open');
+                        allSubmenus.forEach(s => {
+                            if (s !== parentSubmenu) {
+                                s.classList.remove('open');
+                                s.previousElementSibling?.classList.remove('open');
+                                s.previousElementSibling?.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+                            }
+                        });
+                        parentSubmenu.classList.add('open');
+                        header.classList.add('open');
+                        header.querySelector('i').classList.replace('fa-plus', 'fa-minus');
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllIframePages();
+            window.addEventListener('keydown', function(event) {
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+                if (event.key === 'ArrowRight') { event.preventDefault(); navigateToNextSlide(); }
+                else if (event.key === 'ArrowLeft') { event.preventDefault(); navigateToPreviousSlide(); }
+            });
+            document.getElementById('downloadPdfButton').addEventListener('click', downloadCurrentSlideAsPDF);
+            document.getElementById('downloadAllPdfButton').addEventListener('click', downloadAllSlidesAsPDF);
+        });
+
+        /* --- CAMBIO: Generación de PDF Adaptable --- */
+        async function captureSlide(iframeElement) {
+            const iframeBody = iframeElement.contentWindow.document.body;
+            // Usamos scrollWidth/Height para capturar todo, incluso si es más grande que 1280x720
+            const realWidth = 1280; // Mantenemos ancho base
+            const realHeight = iframeElement.contentWindow.document.documentElement.scrollHeight;
+
+            const canvas = await html2canvas(iframeBody, {
+                width: realWidth,
+                height: realHeight, 
+                scale: 1.5,
+                useCORS: true,
+                windowHeight: realHeight // Importante para que renderice todo el contenido vertical
+            });
+            return {
+                imgData: canvas.toDataURL('image/jpeg', 0.8),
+                width: realWidth,
+                height: realHeight
+            };
+        }
+
+        async function downloadCurrentSlideAsPDF() {
+            const btn = document.getElementById('downloadPdfButton');
+            btn.disabled = true; btn.textContent = 'Generando...';
+            try {
+                const { jsPDF } = window.jspdf;
+                const idx = getCurrentSlideIndex();
+                const iframe = iframeReferences[idx].element.querySelector('iframe');
+                
+                const data = await captureSlide(iframe);
+
+                // Crear PDF con las dimensiones exactas de este slide
+                const pdf = new jsPDF({
+                    orientation: data.height > data.width ? 'portrait' : 'landscape',
+                    unit: 'px',
+                    format: [data.width, data.height]
+                });
+
+                pdf.addImage(data.imgData, 'JPEG', 0, 0, data.width, data.height, undefined, 'FAST');
+                pdf.save(`slide_${String(idx + 1).padStart(2, '0')}.pdf`);
+            } catch (e) {
+                console.error(e);
+            }
+            btn.disabled = false; btn.textContent = 'Descargar Slide (PDF)';
+        }
+
+        async function downloadAllSlidesAsPDF() {
+            const btn = document.getElementById('downloadAllPdfButton');
+            btn.disabled = true; btn.textContent = 'Generando... (0%)';
+            try {
+                const { jsPDF } = window.jspdf;
+                // Inicializamos PDF, pero el tamaño de página cambiará dinámicamente
+                const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1280, 720] });
+                
+                // Borrar la primera página por defecto que crea jsPDF si vamos a añadir páginas dinámicas
+                pdf.deletePage(1); 
+
+                for (let i = 0; i < iframeReferences.length; i++) {
+                    btn.textContent = `Generando... (${Math.round(((i+1)/totalPages)*100)}%)`;
+                    const iframe = iframeReferences[i].element.querySelector('iframe');
+                    
+                    const data = await captureSlide(iframe);
+                    
+                    // Añadir página con las dimensiones de ESTE slide
+                    pdf.addPage([data.width, data.height], data.height > data.width ? 'portrait' : 'landscape');
+                    pdf.addImage(data.imgData, 'JPEG', 0, 0, data.width, data.height, undefined, 'FAST');
+                }
+                pdf.save(`presentacion_completa.pdf`);
+            } catch (e) {
+                console.error(e);
+            }
+            btn.disabled = false; btn.textContent = 'Descargar TODO (PDF)';
+        }
+
+        window.addEventListener('resize', () => {
+            iframeReferences.forEach(ref => {
+                const iframe = ref.element.querySelector('iframe');
+                if (iframe) resizeIframe(iframe);
+            });
+            setActiveNavLink(); 
+        });
+
+        /* --- AÑADIR AL FINAL DEL SCRIPT --- */
+        
+        // Esto asegura que, una vez cargado TODO (incluida la primera página),
+        // se fuerce un reajuste de altura a todos los iframes.
+        window.addEventListener('load', function() {
+            console.log("Carga completa. Recalculando alturas...");
+            const allIframes = document.querySelectorAll('iframe');
+            allIframes.forEach(iframe => {
+                resizeIframe(iframe);
+            });
+        });
+
+        // Un seguro extra por si la portada tiene imágenes pesadas que tardan más
+        setTimeout(function() {
+            const firstIframe = document.getElementById('iframe-1');
+            if (firstIframe) resizeIframe(firstIframe);
+        }, 1000); // Se ejecuta 1 segundo después
+    </script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Prompt Engineering para Vídeo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Se ha diseñado una Single-Page Application (SPA) con navegación principal por pestañas temáticas. Esta arquitectura abandona la estructura lineal de un documento para facilitar un acceso rápido y no secuencial a la información. El usuario puede saltar directamente a "Plantillas" si busca soluciones prácticas, o explorar "Fundamentos" si es nuevo en el campo. La estructura se divide en: 1. Inicio (Resumen), 2. Fundamentos (Conceptos y Modelos), 3. Anatomía del Prompt (Constructor interactivo), 4. Técnicas Avanzadas (Contenido desplegable), 5. Plantillas y Chuleta (Galería filtrable, el corazón práctico de la app), 6. Evaluación y MLOps (Visualizaciones y diagramas de procesos), y 7. Ética. Este diseño está centrado en tareas y permite la divulgación progresiva de la complejidad, mejorando drásticamente la usabilidad y la retención del conocimiento en comparación con un informe estático. -->
+    <!-- Visualization & Content Choices: 
+        - Resumen: Tarjetas con métricas clave para impacto inicial. Meta: Informar.
+        - Fundamentos: Tarjetas interactivas para modelos. Meta: Organizar. Interacción: Hover para detalles.
+        - Anatomía: Diagrama interactivo con HTML/CSS. Meta: Organizar/Educar. Interacción: Click en componentes para ver descripciones. Justificación: Mucho más didáctico que un texto plano.
+        - Técnicas Avanzadas: Acordeón de contenidos. Meta: Informar. Interacción: Click para expandir. Justificación: Evita la sobrecarga de información.
+        - Plantillas: Galería de tarjetas con filtros. Meta: Aplicar. Interacción: Filtros por categoría, click para ver detalles. Justificación: Es la sección más accionable; la interactividad es clave.
+        - Evaluación: Gráfico de barras (Chart.js/Canvas) para comparar tipos de métricas. Meta: Comparar. Interacción: Tooltips en el gráfico. Diagrama de flujo CI/CD (HTML/CSS) para visualizar procesos. Meta: Organizar. Justificación: Las visualizaciones simplifican conceptos complejos de MLOps.
+        - Ética: Lista interactiva. Meta: Informar.
+        - Se ha evitado SVG y MermaidJS en favor de HTML/CSS puro y Chart.js sobre Canvas para garantizar la compatibilidad y el rendimiento dentro de un único fichero. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF8;
+            color: #1a202c;
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://rsms.me/inter/inter.css');
+        .nav-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-button.active {
+            color: #835B40;
+            border-bottom-color: #835B40;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAEAEA;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .template-card {
+            cursor: pointer;
+        }
+        .filter-button.active {
+            background-color: #835B40;
+            color: #FFFFFF;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            animation: slideIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#4A3F35] mb-2">Guía Interactiva de Prompt Engineering para Vídeo</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Una plataforma para explorar, aprender y aplicar técnicas avanzadas en la generación y edición de vídeo con IA.</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center border-b-2 border-gray-200 mb-8 space-x-2 md:space-x-6">
+            <button data-target="inicio" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40] active">Inicio</button>
+            <button data-target="fundamentos" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Fundamentos</button>
+            <button data-target="anatomia" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Anatomía del Prompt</button>
+            <button data-target="tecnicas" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Técnicas Avanzadas</button>
+            <button data-target="plantillas" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Plantillas y Chuleta</button>
+            <button data-target="evaluacion" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Evaluación y MLOps</button>
+            <button data-target="etica" class="nav-button py-4 px-2 md:px-4 text-sm md:text-base font-medium text-gray-500 hover:text-[#835B40]">Ética y Seguridad</button>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="inicio" class="content-section active">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Del Arte a la Ingeniería de Sistemas</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">Esta guía consolida el conocimiento de las principales referencias de 2025 para ofrecer un marco de trabajo profesional, reproducible y orientado a la producción. El objetivo es simple: capacitar a los equipos para construir sistemas de vídeo generativo que sean fiables, controlables y éticos, alcanzando un nivel de calidad sobresaliente (≥ 9.5/10).</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="card p-6 rounded-lg">
+                        <div class="text-4xl mb-2">🎥</div>
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Control Cinemático</h3>
+                        <p class="text-gray-600">Aprende a dirigir la cámara, controlar el timing y aplicar estilos visuales para contar historias impactantes.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <div class="text-4xl mb-2">⚙️</div>
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Pipeline Productivo</h3>
+                        <p class="text-gray-600">Integra el versionado, la evaluación continua (CI/CD) y la gestión de costes en tu flujo de trabajo de MLOps.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <div class="text-4xl mb-2">📊</div>
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Métricas de Calidad</h3>
+                        <p class="text-gray-600">Utiliza métricas automáticas y protocolos de validación para asegurar la coherencia temporal y visual de tus vídeos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fundamentos" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Modelos y Conceptos Clave</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">Para generar vídeo, los modelos interpretan el texto y las imágenes en una secuencia de fotogramas (frames). Entender su funcionamiento es el primer paso para dominarlos.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card p-6 rounded-lg text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Sora</h3>
+                        <p class="text-gray-600">Modelo de OpenAI conocido por su alta fidelidad, coherencia temporal y capacidad para generar escenas complejas de hasta un minuto.</p>
+                    </div>
+                     <div class="card p-6 rounded-lg text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Runway Gen-2</h3>
+                        <p class="text-gray-600">Plataforma líder con un enfoque en herramientas de control para cineastas y creadores, permitiendo text-to-video, image-to-video y video-to-video.</p>
+                    </div>
+                     <div class="card p-6 rounded-lg text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Pika</h3>
+                        <p class="text-gray-600">Destaca por su flexibilidad para modificar y editar regiones específicas de un vídeo, así como por sus transiciones dinámicas y control de cámara.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-[#835B40]">Stable Video Diffusion</h3>
+                        <p class="text-gray-600">Modelo open-source de Stability AI, ideal para animaciones cortas y con una comunidad activa que desarrolla extensiones y flujos de trabajo.</p>
+                    </div>
+                </div>
+                 <div class="mt-10 card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-[#4A3F35] mb-4 text-center">Flujo Temporal y Multimodalidad</h3>
+                    <p class="text-gray-700 text-center max-w-2xl mx-auto">Un prompt de vídeo no es solo texto. Es una orquestación de múltiples entradas (texto, imagen, audio) que deben alinearse en el tiempo. El modelo procesa esta información para generar una secuencia coherente de fotogramas, donde cada fotograma depende del anterior y de las instrucciones globales del prompt.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 mt-6 text-center">
+                        <div class="p-4 rounded-lg bg-[#FDFBF8] w-48">
+                            <span class="text-3xl">📝</span>
+                            <p class="font-semibold mt-2">Input de Texto</p>
+                            <p class="text-sm text-gray-600">(Narrativa, Estilo)</p>
+                        </div>
+                        <div class="text-3xl text-gray-400">+</div>
+                        <div class="p-4 rounded-lg bg-[#FDFBF8] w-48">
+                           <span class="text-3xl">🖼️</span>
+                            <p class="font-semibold mt-2">Input Visual</p>
+                             <p class="text-sm text-gray-600">(Imagen de referencia)</p>
+                        </div>
+                         <div class="text-3xl text-gray-400">→</div>
+                        <div class="p-4 rounded-lg bg-[#EFEAE6] w-64 border border-[#DCD6D0]">
+                           <span class="text-3xl">🎬</span>
+                            <p class="font-semibold mt-2">Flujo de Vídeo</p>
+                             <p class="text-sm text-gray-600">(Frames coherentes)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="anatomia" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Anatomía de un Prompt de Vídeo</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">Un prompt efectivo sigue una jerarquía clara. Haz clic en cada componente para entender su función y ver ejemplos.</p>
+                </div>
+                <div class="card p-6 rounded-lg">
+                    <div id="interactive-prompt" class="p-4 bg-gray-100 rounded-lg text-lg mb-4 text-center">
+                        <span data-component="sujeto" class="cursor-pointer font-bold text-blue-600 hover:underline">Un astronauta</span>
+                        <span data-component="accion" class="cursor-pointer text-green-700 hover:underline">flota lentamente</span>
+                        <span data-component="entorno" class="cursor-pointer text-purple-700 hover:underline">dentro de una estación espacial futurista</span>,
+                        <span data-component="iluminacion" class="cursor-pointer text-orange-600 hover:underline">iluminado por el brillo azul de la Tierra</span>.
+                        <span data-component="estilo" class="cursor-pointer text-red-600 hover:underline">Estilo cinematográfico, 8K, hiperrealista</span>
+                        <span data-component="parametros" class="cursor-pointer text-gray-500 hover:underline">--duration 10s --fps 24 --camera pan_left_slow</span>.
+                    </div>
+                    <div id="prompt-explanation" class="p-4 bg-[#FDFBF8] rounded-lg min-h-[120px] border border-gray-200">
+                        <h3 id="exp-title" class="text-xl font-bold text-[#835B40]">Haz clic en un componente del prompt</h3>
+                        <p id="exp-description" class="text-gray-700 mt-2">Cada parte del prompt cumple un rol específico para guiar al modelo de IA.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="tecnicas" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Técnicas Avanzadas de Prompting</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">Domina el control temporal, la narrativa y el estilo para llevar tus creaciones al siguiente nivel.</p>
+                </div>
+                <div id="accordion-container" class="space-y-4">
+                    
+                </div>
+            </section>
+
+            <section id="plantillas" class="content-section">
+                 <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Plantillas y Chuleta Rápida</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">Utiliza estas plantillas paramétricas como punto de partida para tus proyectos. Filtra por categoría para encontrar lo que necesitas.</p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2 mb-8" id="filter-buttons">
+                    <button class="filter-button active px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium" data-filter="all">Todas</button>
+                </div>
+
+                <div id="templates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+
+                 <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-center text-[#4A3F35] mb-6">Chuleta de Modificadores</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-[#835B40]">Temporales</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><code>--duration [s]</code>: Duración en segundos.</li>
+                                <li><code>--fps [num]</code>: Frames por segundo.</li>
+                                <li><code>--loop [num]</code>: Repetir el vídeo N veces.</li>
+                                <li><code>--boomerang</code>: Reproducir adelante y atrás.</li>
+                            </ul>
+                        </div>
+                        <div class="card p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-[#835B40]">Cámara</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><code>--camera pan_left_slow</code></li>
+                                <li><code>--camera zoom_in_fast</code></li>
+                                <li><code>--camera tilt_up</code></li>
+                                <li><code>--camera dolly</code></li>
+                            </ul>
+                        </div>
+                        <div class="card p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-[#835B40]">Estilo</h4>
+                             <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><code>cinematic, 8k, photorealistic</code></li>
+                                <li><code>anime style, studio ghibli</code></li>
+                                <li><code>vintage film, 1970s, grainy</code></li>
+                                <li><code>3d render, octane render</code></li>
+                            </ul>
+                        </div>
+                        <div class="card p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-[#835B40]">Control</h4>
+                             <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><code>--seed [num]</code>: Para reproducibilidad.</li>
+                                <li><code>--no [item]</code>: Prompt negativo.</li>
+                                <li><code>(word:1.2)</code>: Aumentar peso.</li>
+                                <li><code>[word:0.8]</code>: Disminuir peso.</li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            
+            <section id="evaluacion" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Evaluación y Operativa (MLOps)</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">La generación de vídeo en producción requiere un sistema robusto de evaluación, versionado y despliegue continuo.</p>
+                </div>
+
+                <div class="card p-6 rounded-lg mb-10">
+                    <h3 class="text-2xl font-bold text-[#4A3F35] mb-4 text-center">Métricas Clave de Calidad</h3>
+                    <p class="text-center text-gray-600 mb-6">Una evaluación completa combina métricas automáticas que miden aspectos técnicos con la validación humana que juzga la calidad narrativa y estilística.</p>
+                    <div class="chart-container">
+                        <canvas id="metricsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-[#4A3F35] mb-6 text-center">Pipeline CI/CD para Prompts de Vídeo</h3>
+                    <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 text-center items-center justify-center">
+                        <div class="w-full md:w-1/5 p-4 bg-gray-100 rounded-lg">
+                            <p class="font-bold">1. Versionado</p>
+                            <p class="text-sm text-gray-600">(Git, DVC) Plantillas y Estilos</p>
+                        </div>
+                        <div class="text-2xl font-mono text-gray-400">&gt;</div>
+                        <div class="w-full md:w-1/5 p-4 bg-gray-100 rounded-lg">
+                            <p class="font-bold">2. Batch Testing</p>
+                             <p class="text-sm text-gray-600">(Set de validación) Generación masiva</p>
+                        </div>
+                        <div class="text-2xl font-mono text-gray-400">&gt;</div>
+                        <div class="w-full md:w-1/5 p-4 bg-gray-100 rounded-lg">
+                            <p class="font-bold">3. Scoring Auto</p>
+                             <p class="text-sm text-gray-600">(FVD, CLIP) Métricas de coherencia</p>
+                        </div>
+                        <div class="text-2xl font-mono text-gray-400">&gt;</div>
+                        <div class="w-full md:w-1/5 p-4 bg-green-100 rounded-lg border border-green-300">
+                             <p class="font-bold">4. Despliegue</p>
+                             <p class="text-sm text-gray-600">(API/Producción) Si supera umbral</p>
+                        </div>
+                    </div>
+                     <div class="text-center mt-4">
+                        <p class="text-gray-600">Este flujo automatizado asegura que solo los prompts de alta calidad, que superan umbrales predefinidos (thresholds), lleguen a producción, permitiendo un rollback controlado si las métricas se degradan.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="etica" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#4A3F35] mb-2">Ética y Seguridad</h2>
+                     <p class="text-md text-gray-600 max-w-3xl mx-auto">El poder de la generación de vídeo conlleva una gran responsabilidad. Es crucial implementar prácticas de prompting defensivo y mitigar riesgos.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-3 text-[#835B40] flex items-center"><span class="text-2xl mr-3">🛡️</span>Prompting Defensivo</h3>
+                        <p class="text-gray-700 mb-2">Diseña prompts que restrinjan el espacio de salida del modelo para evitar que genere contenido no deseado o peligroso. Utiliza instrucciones claras y negativas.</p>
+                        <p class="font-mono bg-gray-100 p-2 rounded text-sm">Ej: <code>Genera un vídeo de un paisaje natural. --no personas, --no edificios, --no violencia.</code></p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-3 text-[#835B40] flex items-center"><span class="text-2xl mr-3">⚖️</span>Prevención de Sesgos</h3>
+                        <p class="text-gray-700">Sé consciente de los sesgos inherentes a los datos de entrenamiento. Varía los atributos demográficos y culturales en tus prompts para promover la diversidad y la equidad en las representaciones.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-3 text-[#835B40] flex items-center"><span class="text-2xl mr-3">🎭</span>Riesgo de Deepfake</h3>
+                        <p class="text-gray-700">Nunca utilices la imagen de personas reales sin su consentimiento explícito. Implementa y respeta las políticas de contenido sensible de las plataformas y utiliza watermarking para indicar que el contenido es generado por IA.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                         <h3 class="text-xl font-semibold mb-3 text-[#835B40] flex items-center"><span class="text-2xl mr-3">💧</span>Watermarking y Transparencia</h3>
+                        <p class="text-gray-700">Asegúrate de que los vídeos generados incluyan metadatos o marcas de agua (visibles o invisibles) que los identifiquen como creaciones de IA. La transparencia con el espectador es fundamental.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="templateModal" class="modal">
+        <div class="modal-content bg-white max-w-2xl mx-auto mt-20 mb-20 p-8 rounded-lg shadow-2xl relative w-11/12">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            <h2 id="modal-title" class="text-2xl font-bold text-[#4A3F35] mb-4"></h2>
+            <p id="modal-description" class="text-gray-600 mb-4"></p>
+            <h3 class="font-semibold text-lg text-[#835B40] mb-2">Ejemplo de Prompt:</h3>
+            <pre class="bg-gray-100 p-4 rounded-lg text-sm text-gray-800 whitespace-pre-wrap font-mono mb-4"><code id="modal-prompt"></code></pre>
+            <h3 class="font-semibold text-lg text-[#835B40] mb-2">Vídeo Esperado y Criterios de Aceptación:</h3>
+            <p id="modal-acceptance" class="text-gray-700"></p>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const appData = {
+            promptComponents: {
+                sujeto: {
+                    title: "Sujeto Principal",
+                    description: "El 'quién' o 'qué' de tu escena. Es el foco central. Debe ser claro y descriptivo. Ejemplos: 'un robot antiguo', 'una bandada de pájaros de colores'."
+                },
+                accion: {
+                    title: "Acción",
+                    description: "Lo que el sujeto está haciendo. Define el movimiento y la narrativa. Usa verbos fuertes. Ejemplos: 'construyendo una torre', 'bailando bajo la lluvia'."
+                },
+                entorno: {
+                    title: "Entorno / Escenario",
+                    description: "El 'dónde'. Establece el contexto y la atmósfera de la escena. Sé específico para obtener mejores resultados. Ejemplos: 'en un bosque neblinoso al amanecer', 'en una ciudad cyberpunk'."
+                },
+                iluminacion: {
+                    title: "Iluminación",
+                    description: "Describe cómo la luz interactúa con la escena. Es crucial para el ambiente y el estilo visual. Ejemplos: 'luz dorada del atardecer', 'luces de neón parpadeantes'."
+                },
+                estilo: {
+                    title: "Estilo Visual y Calidad",
+                    description: "Define la estética general. Puede ser una referencia a un artista, un género o una técnica. Ejemplos: 'estilo de acuarela', 'película de ciencia ficción de los 80', 'fotorrealista'."
+                },
+                parametros: {
+                    title: "Parámetros Técnicos",
+                    description: "Instrucciones de control para el modelo. Se suelen añadir al final con '--'. Controlan la duración, FPS, movimiento de cámara, etc. Ejemplos: '--duration 8s', '--fps 30', '--camera zoom_out'."
+                }
+            },
+            advancedTechniques: [
+                { title: "Prompt Weighting (Pesado de Prompts)", content: "Asigna más o menos importancia a ciertas palabras o frases. La sintaxis común es `(palabra:1.2)` para aumentar su peso en un 20% o `[palabra:0.8]` para disminuirlo. Esto es útil para afinar detalles y resolver conflictos en el prompt." },
+                { title: "Control de Movimiento y Narrativa", content: "Usa parámetros de cámara explícitos como `--camera pan_left_slow` o `--camera zoom_in_fast` para dirigir la cinematografía. Para la narrativa, estructura el prompt cronológicamente: 'Un cohete despega; luego, se ve orbitando la Tierra'." },
+                { title: "Video-to-Video y Masking", content: "Proporciona un vídeo de entrada y un prompt de texto para transformarlo (Video-to-Video). Con el masking, puedes aplicar cambios solo a regiones específicas del vídeo, como cambiar el color de un coche sin alterar el fondo." },
+                { title: "Temporal Chaining (Encadenamiento Temporal)", content: "Para vídeos largos o con múltiples escenas, divide la historia en varios prompts. Genera la primera escena, y usa el último frame como imagen de referencia para el prompt de la segunda escena, asegurando la continuidad." },
+                { title: "Prompts Negativos", content: "Utiliza el parámetro `--no` o `--negative_prompt` para especificar lo que NO quieres ver. Es muy eficaz para eliminar artefactos comunes, elementos no deseados o estilos. Ejemplo: `--no blurry, deformed hands, text`." }
+            ],
+            templates: [
+                { id: 1, category: "narracion", title: "Narración de Escena Corta", description: "Crea una pequeña viñeta con un principio, nudo y desenlace claros.", prompt: "Un joven explorador descubre un antiguo mapa en un desván polvoriento; con una mirada de determinación, se dirige hacia una montaña lejana que aparece en el mapa. --style adventure_film, cinematic, warm_lighting --duration 12s --fps 24", acceptance: "El vídeo debe mostrar las dos acciones secuencialmente: el descubrimiento y el inicio del viaje. La iluminación cálida y el estilo de aventura deben ser consistentes." },
+                { id: 2, category: "cinematica", title: "Plano Aéreo Cinemático (Drone)", description: "Simula una toma de dron majestuosa sobre un paisaje.", prompt: "Un plano aéreo de dron volando lentamente sobre una cadena de montañas nevadas al amanecer, las nubes flotan por debajo. --style national_geographic, 8K, photorealistic, epic_shot --camera dolly_forward_slow --duration 10s", acceptance: "El movimiento de cámara debe ser suave y hacia adelante. La calidad debe ser hiperrealista, con detalles nítidos en la nieve y las nubes." },
+                { id: 3, category: "looping", title: "Loop Perfecto Animado", description: "Genera una animación que se repite sin interrupciones.", prompt: "Un gato de dibujos animados escribiendo en un portátil, en un bucle perfecto. --style lo-fi, animated_loop, cozy_vibe --loop", acceptance: "El último fotograma debe conectar perfectamente con el primero, sin saltos visibles en el movimiento del gato o el fondo." },
+                { id: 4, category: "estilo", title: "Transferencia de Estilo Artístico", description: "Aplica un estilo visual específico a una acción simple.", prompt: "Una persona caminando por una calle lluviosa de la ciudad, al estilo de la pintura 'La noche estrellada' de Van Gogh. --duration 8s --style artistic, swirling_colors", acceptance: "El vídeo debe imitar claramente las pinceladas, los colores y el movimiento arremolinado característicos del estilo de Van Gogh." },
+                { id: 5, category: "efecto", title: "Efecto de Slow Motion", description: "Crea una escena dramática a cámara lenta.", prompt: "Gotas de lluvia cayendo en un charco, en super cámara lenta. --style dramatic, high_contrast, 4k --fps 120", acceptance: "El movimiento del agua debe ser extremadamente lento y detallado, mostrando las ondas y salpicaduras con gran claridad." },
+                { id: 6, category: "producto", title: "Vídeo de Producto 360°", description: "Muestra un producto rotando sobre un fondo limpio.", prompt: "Un reloj de lujo rotando 360 grados sobre un fondo blanco limpio. --style 3d_render, product_shot, clean_lighting --camera rotate_360 --duration 10s", acceptance: "La rotación debe ser constante y suave. La iluminación debe resaltar los detalles del producto sin crear reflejos molestos." },
+                { id: 7, category: "abstracto", title: "Visual Abstracto y Generativo", description: "Crea fondos o visuales artísticos sin un sujeto claro.", prompt: "Formas geométricas de neón que fluyen y se transforman en un patrón hipnótico. --style abstract, generative_art, vj_loop --loop --duration 15s", acceptance: "El movimiento debe ser fluido y las transiciones entre formas deben ser suaves. El loop debe ser perfecto." },
+                { id: 8, category: "cinematica", title: "Travelling (Dolly Zoom)", description: "Crea el clásico efecto 'vértigo' donde el fondo parece acercarse o alejarse.", prompt: "Una mujer de pie en un pasillo largo, su expresión cambia de sorpresa a miedo mientras la cámara hace un dolly zoom. --style psychological_thriller, high_contrast --camera dolly_zoom_in --duration 6s", acceptance: "El sujeto principal (la mujer) debe mantener su tamaño en el encuadre mientras que el fondo (el pasillo) se comprime o expande visiblemente." },
+                { id: 9, category: "narracion", title: "Time-lapse de Construcción", description: "Muestra un proceso largo en un corto período de tiempo.", prompt: "Time-lapse de una flor que brota, florece y se marchita. --style nature_documentary, 4k --duration 10s --fps 30", acceptance: "El vídeo debe mostrar claramente todo el ciclo de vida de la flor de manera acelerada y fluida, sin saltos abruptos." },
+                { id: 10, category: "estilo", title: "Estilo Película Vintage", description: "Imita la estética de una película antigua.", prompt: "Una pareja bailando en un club de jazz. --style 1950s_film, grainy, black_and_white, vintage --duration 8s", acceptance: "El vídeo debe tener grano de película, ser en blanco y negro, y mostrar imperfecciones sutiles como pequeños arañazos o parpadeos de luz, típicos del cine de esa época." },
+                { id: 11, category: "personaje", title: "Presentación de Personaje", description: "Crea un plano corto que revele la personalidad de un personaje.", prompt: "Un primer plano extremo de un viejo detective, cansado, una cicatriz en su ceja, mirando directamente a la cámara mientras la lluvia corre por la ventana detrás de él. --style film_noir, dramatic_lighting, 4K --duration 7s", acceptance: "La cámara debe estar estática o moverse muy lentamente. La iluminación debe ser de clave baja (low-key), creando fuertes contrastes. La expresión del personaje debe ser el foco principal." },
+                { id: 12, category: "efecto", title: "Transición de Escena Creativa", description: "Genera una transición visual entre dos conceptos.", prompt: "Una gota de tinta negra cae en agua limpia, y la nube de tinta se transforma en una galaxia giratoria. --style macro_shot, magical_realism --duration 8s", acceptance: "La transición debe ser fluida y creíble dentro del estilo mágico. La primera parte (macro) y la segunda (espacio) deben estar visualmente conectadas por la forma de la tinta/galaxia." },
+            ]
+        };
+
+        const navButtons = document.querySelectorAll('.nav-button');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.dataset.target;
+                
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                contentSections.forEach(section => {
+                    if (section.id === target) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        const interactivePromptSpans = document.querySelectorAll('#interactive-prompt span');
+        const expTitle = document.getElementById('exp-title');
+        const expDescription = document.getElementById('exp-description');
+
+        interactivePromptSpans.forEach(span => {
+            span.addEventListener('click', () => {
+                const componentKey = span.dataset.component;
+                const componentData = appData.promptComponents[componentKey];
+                expTitle.textContent = componentData.title;
+                expDescription.textContent = componentData.description;
+            });
+        });
+
+        const accordionContainer = document.getElementById('accordion-container');
+        appData.advancedTechniques.forEach(item => {
+            const accordionItem = document.createElement('div');
+            accordionItem.classList.add('card', 'rounded-lg', 'overflow-hidden');
+            accordionItem.innerHTML = `
+                <button class="w-full text-left p-4 font-semibold text-lg text-[#4A3F35] flex justify-between items-center bg-white hover:bg-gray-50">
+                    <span>${item.title}</span>
+                    <span class="transform transition-transform duration-300 text-[#835B40]">&#9662;</span>
+                </button>
+                <div class="px-4 pb-4 bg-white text-gray-700 max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <p>${item.content}</p>
+                </div>
+            `;
+            accordionContainer.appendChild(accordionItem);
+        });
+
+        const accordionButtons = accordionContainer.querySelectorAll('button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const arrow = button.querySelector('span:last-child');
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    arrow.style.transform = 'rotate(0deg)';
+                } else {
+                    accordionButtons.forEach(b => {
+                        b.nextElementSibling.style.maxHeight = null;
+                        b.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                    });
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    arrow.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        const templatesGrid = document.getElementById('templates-grid');
+        const filterButtonsContainer = document.getElementById('filter-buttons');
+        const categories = [...new Set(appData.templates.map(t => t.category))];
+
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'filter-button px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium';
+            button.dataset.filter = category;
+            button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            filterButtonsContainer.appendChild(button);
+        });
+
+        function renderTemplates(filter = 'all') {
+            templatesGrid.innerHTML = '';
+            const filteredTemplates = filter === 'all' ? appData.templates : appData.templates.filter(t => t.category === filter);
+            
+            filteredTemplates.forEach(template => {
+                const card = document.createElement('div');
+                card.className = 'template-card card p-6 rounded-lg';
+                card.dataset.templateId = template.id;
+                card.innerHTML = `
+                    <span class="inline-block bg-[#EFEAE6] text-[#835B40] text-xs font-semibold px-2 py-1 rounded-full mb-2">${template.category}</span>
+                    <h4 class="font-bold text-lg text-[#4A3F35] mb-2">${template.title}</h4>
+                    <p class="text-gray-600 text-sm">${template.description}</p>
+                `;
+                templatesGrid.appendChild(card);
+            });
+        }
+        
+        renderTemplates();
+
+        const filterButtons = document.querySelectorAll('.filter-button');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                renderTemplates(button.dataset.filter);
+            });
+        });
+
+        const modal = document.getElementById('templateModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        templatesGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.template-card');
+            if (card) {
+                const templateId = parseInt(card.dataset.templateId);
+                const template = appData.templates.find(t => t.id === templateId);
+                document.getElementById('modal-title').textContent = template.title;
+                document.getElementById('modal-description').textContent = template.description;
+                document.getElementById('modal-prompt').textContent = template.prompt;
+                document.getElementById('modal-acceptance').textContent = template.acceptance;
+                modal.style.display = 'block';
+            }
+        });
+
+        closeModal.onclick = () => { modal.style.display = 'none'; };
+        window.onclick = (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        const ctx = document.getElementById('metricsChart').getContext('2d');
+        const metricsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Coherencia Temporal', 'Calidad Visual', 'Alineación con Prompt', 'Originalidad'],
+                datasets: [{
+                    label: 'Métricas Automáticas (Ej: FVD, SSIM)',
+                    data: [9, 7, 8, 4],
+                    backgroundColor: 'rgba(131, 91, 64, 0.6)',
+                    borderColor: 'rgba(131, 91, 64, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Evaluación Humana / LLM-as-judge',
+                    data: [7, 8, 9, 9],
+                    backgroundColor: 'rgba(200, 180, 160, 0.6)',
+                    borderColor: 'rgba(200, 180, 160, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Puntuación de Relevancia (1-10)'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Comparativa de Foco en Tipos de Métricas',
+                        font: { size: 16 }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

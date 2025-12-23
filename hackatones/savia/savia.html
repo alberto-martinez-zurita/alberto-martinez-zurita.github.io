@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVIA: Interactive Strategic Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Stone) with a Teal accent -->
+    <!-- Application Structure Plan: A tab-based Single Page Application (SPA) is chosen for optimal user experience. This structure breaks down the dense report into digestible, thematic sections: 'Home' (a welcoming overview), 'The Challenge' (user personas and problems), 'The Solution' (technical architecture and guardrails), 'Compliance' (EU AI Act obligations), 'Action Plan' (hackathon timeline), 'The Team' (introduces the creators), 'Chatbot' (a functional demo), and 'Future Vision' (product backlog). This non-linear navigation allows users (e.g., hackathon judges) to quickly access the information most relevant to them. -->
+    <!-- Visualization & Content Choices: The report's content is transformed into interactive components. Goal: Compare user barriers -> Viz: A Radar chart in 'The Challenge'. Goal: Explain technical architecture -> Viz: A diagram built with HTML/CSS in 'The Solution'. Goal: Detail legal obligations -> Viz: Interactive cards in 'Compliance'. Goal: Outline the project plan -> Viz: A visual timeline in 'Action Plan'. Goal: Introduce the team -> Viz: Photo grid with bios in 'The Team'. Goal: Demonstrate functionality -> UI: A chatbot interface in 'Chatbot'. These choices make abstract concepts concrete and data easier to digest, using Chart.js for charts and Tailwind CSS for all diagrams and layouts, ensuring no SVG or Mermaid is used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            color: #0f766e; /* teal-700 */
+            border-bottom-color: #0f766e; /* teal-700 */
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #14b8a6, #0d9488);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <img src="./savia-logo.png" alt="SAVIA Logo" class="w-24 h-24 mx-auto mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text">SAVIA</h1>
+            <p class="text-slate-600 mt-2 text-lg">Smart Advisor for Vulnerable and Inclusive Access</p>
+            <p class="text-slate-500 mt-1">An Interactive Look at Our Strategic Plan</p>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="border-b border-slate-200 mb-8">
+            <nav class="-mb-px flex flex-wrap justify-center space-x-2 md:space-x-8" aria-label="Tabs">
+                <button onclick="changeTab('home')" class="tab-btn active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">Home</button>
+                <button onclick="changeTab('challenge')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">The Challenge</button>
+                <button onclick="changeTab('solution')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">The Solution</button>
+                <button onclick="changeTab('compliance')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">Compliance</button>
+                <button onclick="changeTab('plan')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">Action Plan</button>
+                <button onclick="changeTab('team')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">The Team</button>
+                <button onclick="changeTab('chatbot')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">Chatbot</button>
+                <button onclick="changeTab('future')" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-teal-600 border-transparent">Future Vision</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main>
+            <!-- Home Section -->
+            <div id="home" class="tab-content active">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-4">Welcome to SAVIA</h2>
+                    <p class="text-slate-600 mb-4">
+                        SAVIA is a project conceived to revolutionize financial education through artificial intelligence. Our mission is to create an AI financial advisor that is <B>inclusive, reliable, and accessible</B> to everyone, especially vulnerable populations. This interactive dashboard summarizes our strategic plan, designed for a high-impact hackathon but with a clear vision towards a scalable and compliant product under strict European regulations.
+                    </p>
+                    <p class="text-slate-600">
+                        The name SAVIA, which in Spanish evokes the vitality of plants and phonetically sounds like "sabia" (wise), encapsulates our mission: to nurture financial knowledge intelligently and accessibly. Browse the tabs to discover how we address the challenge, our technical solution, the action plan, and our vision for the future.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Challenge Section -->
+            <div id="challenge" class="tab-content">
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2">The Challenge: Real Financial Inclusion</h2>
+                     <p class="text-slate-600 mb-6 text-center">Our solution focuses on breaking down real barriers for two key user profiles with very different needs.</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-center">Comparison of Financial Barriers</h3>
+                            <div class="chart-container">
+                                <canvas id="personasChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                                <h4 class="font-bold text-lg text-slate-700">Gen Z</h4>
+                                <p class="text-sm text-slate-600 mt-1">Inexperienced and exposed to misinformation. They need basic concepts and to distinguish reliable sources from speculative ones.</p>
+                                <p class="text-xs text-teal-600 font-semibold mt-2">SAVIA Solution: Adaptive RAG with educational sources and proactive guardrails against "guaranteed high return" promises.</p>
+                            </div>
+                            <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                                <h4 class="font-bold text-lg text-slate-700">The Elderly</h4>
+                                <p class="text-sm text-slate-600 mt-1">They face digital exclusion and high vulnerability to fraud. They require simple interfaces and active protection.</p>
+                                <p class="text-xs text-teal-600 font-semibold mt-2">SAVIA Solution: High-contrast UI, voice options, and alerts for sensitive personal data requests.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Solution Section -->
+            <div id="solution" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-6 text-center">The Solution: Architecture of Trust</h2>
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-center">MVP Technical Architecture</h3>
+                            <p class="text-slate-600 mb-4 text-center text-sm">An orchestrated flow on Google Cloud to ensure reliability and scalability.</p>
+                            <div class="space-y-2 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="flex items-center justify-center p-3 bg-white rounded-md shadow-sm"><span class="font-mono text-sm">Frontend (React/Vue)</span></div>
+                                <div class="text-center text-teal-600">↓</div>
+                                <div class="flex items-center justify-center p-3 bg-white rounded-md shadow-sm"><span class="font-mono text-sm">Backend API (Cloud Run)</span></div>
+                                <div class="text-center text-teal-600">↓</div>
+                                <div class="flex items-center justify-center p-3 bg-teal-100 text-teal-800 rounded-md shadow-sm"><span class="font-mono text-sm">RAG Pipeline (Vertex AI Search)</span></div>
+                                <div class="text-center text-teal-600">↓</div>
+                                <div class="flex items-center justify-center p-3 bg-white rounded-md shadow-sm"><span class="font-mono text-sm">LLM (Gemini)</span></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-center">Multi-Layered Security Stack</h3>
+                            <p class="text-slate-600 mb-4 text-center text-sm">A defense-in-depth to ensure safe and relevant responses.</p>
+                            <div class="space-y-3">
+                                <div class="p-3 border-l-4 border-teal-600 bg-slate-100 rounded-r-md">
+                                    <h4 class="font-bold">Layer 4: Output Filtering</h4>
+                                    <p class="text-sm text-slate-600">Vertex AI safety filters to prevent leaks and inappropriate content.</p>
+                                </div>
+                                <div class="p-3 border-l-4 border-teal-500 bg-slate-100 rounded-r-md">
+                                    <h4 class="font-bold">Layer 3: Prompt Construction</h4>
+                                    <p class="text-sm text-slate-600">Server-side meta-prompt with rules, RAG context, and user query.</p>
+                                </div>
+                                <div class="p-3 border-l-4 border-teal-400 bg-slate-100 rounded-r-md">
+                                    <h4 class="font-bold">Layer 2: Topical Guardrail</h4>
+                                    <p class="text-sm text-slate-600">LLM-as-judge to block investment advice and off-topic questions.</p>
+                                </div>
+                                <div class="p-3 border-l-4 border-teal-300 bg-slate-100 rounded-r-md">
+                                    <h4 class="font-bold">Layer 1: Input Sanitization</h4>
+                                    <p class="text-sm text-slate-600">Regex to detect and protect personally identifiable information (PII).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Section -->
+            <div id="compliance" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2">Compliance by Design: EU AI Act</h2>
+                    <p class="text-slate-600 mb-6">SAVIA is classified as a <B>"high-risk AI system"</B> under Regulation (EU) 2024/1689. This implies strict obligations that we integrate from the start.</p>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-700">Art. 9: Risk Management</h3>
+                            <p class="text-sm text-slate-600 mt-1">Maintain a continuous system to identify and mitigate risks like inaccurate advice.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-700">Art. 10: Data Governance</h3>
+                            <p class="text-sm text-slate-600 mt-1">Use reliable and documented data sources (e.g., Bank of Spain, CNMV) for the RAG.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-700">Art. 12: Record-Keeping</h3>
+                            <p class="text-sm text-slate-600 mt-1">Automatic logging of every interaction to ensure traceability of results.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-700">Art. 14: Human Oversight</h3>
+                            <p class="text-sm text-slate-600 mt-1">Design that allows a human to supervise, intervene, and override the system's responses.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-700">Art. 50: Transparency</h3>
+                            <p class="text-sm text-slate-600 mt-1">Always inform the user that they are interacting with an AI and explain its limitations.</p>
+                        </div>
+                         <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="font-bold text-teal-700">Demonstrable Reliability</h3>
+                            <p class="text-sm text-slate-600 mt-1">Our "wow factor" is a validation script that proves 93-98% accuracy against a curated test set.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Plan Section -->
+            <div id="plan" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-6 text-center">Action Plan: 24	-Hour Hackathon</h2>
+                    <div class="relative pl-8 border-l-2 border-slate-200">
+                        <div class="mb-8"><div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-2 mt-1.5 border-2 border-white"></div><p class="text-sm font-semibold text-teal-600">Hours 0-2</p><h3 class="font-bold">Setup & Scoping</h3><p class="text-sm text-slate-600">Finalize MVP scope, run GCP setup scripts, ingest initial documents, and create the test set.</p></div>
+                        <div class="mb-8"><div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-2 mt-1.5 border-2 border-white"></div><p class="text-sm font-semibold text-teal-600">Hours 3-12</p><h3 class="font-bold">Component Building</h3><p class="text-sm text-slate-600">Develop the API, static UI, V1 prompts, and validate RAG indexing.</p></div>
+                        <div class="mb-8"><div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-2 mt-1.5 border-2 border-white"></div><p class="text-sm font-semibold text-teal-600">Hours 12-18</p><h3 class="font-bold">Integration & Testing</h3><p class="text-sm text-slate-600">Connect all components (Frontend, Backend, RAG). Run first E2E tests and iterate on logic.</p></div>
+                        <div class="mb-8"><div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-2 mt-1.5 border-2 border-white"></div><p class="text-sm font-semibold text-teal-600">Hours 18-24</p><h3 class="font-bold">Polish & Prep</h3><p class="text-sm text-slate-600">Finalize UI/UX, run the final validation script, and prepare the demo presentation.</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The Team Section -->
+            <div id="team" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-4 text-center">Meet the SAVIA Team</h2>
+                    <p class="text-slate-600 mb-8 text-center max-w-3xl mx-auto">We are a passionate group of developers, designers, and strategists united by a common goal: to leverage technology for financial good. We believe that everyone deserves access to clear, reliable financial guidance, and we're excited to build a solution that makes that a reality.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <img src="team_b.jpg" alt="Team brainstorming for SAVIA" class="rounded-lg shadow-md w-full h-full object-cover">
+                        <img src="team_w.jpg" alt="Team working on SAVIA" class="rounded-lg shadow-md w-full h-full object-cover">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                        <!-- Team Member Cards -->
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="AM.jpg" alt="Alberto Martínez" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Alberto Martinez</h3><p class="text-sm text-teal-600 font-semibold">AI Lead</p><p class="text-xs text-slate-500 mt-2">"Passionate about building AI that empowers people."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="DA.jpg" alt="Daniel Alonso" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Daniel Alonso</h3><p class="text-sm text-teal-600 font-semibold">Backend Architect</p><p class="text-xs text-slate-500 mt-2">"Focused on creating robust and scalable systems."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="AR.jpg" alt="Alessandro Russo" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Alessandro Russo</h3><p class="text-sm text-teal-600 font-semibold">Cloud Architect</p><p class="text-xs text-slate-500 mt-2">"Designing resilient cloud infrastructure for social impact."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="TJ.jpg" alt="Toni Jara" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Toni Jara</h3><p class="text-sm text-teal-600 font-semibold">Frontend Architect</p><p class="text-xs text-slate-500 mt-2">"Crafting intuitive and accessible user experiences."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="JC.jpg" alt="Joan Carles Munuera" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Joan Carles Munuera</h3><p class="text-sm text-teal-600 font-semibold">Senior Architect</p><p class="text-xs text-slate-500 mt-2">"Architecting future-ready solutions to drive meaningful change in society."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="RS.jpg" alt="Ricard Sociats" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Ricard Sociats</h3><p class="text-sm text-teal-600 font-semibold">Frontend Architect</p><p class="text-xs text-slate-500 mt-2">"Advocating for the user in every design decision."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="DS.jpg" alt="David Sole" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">David Sole</h3><p class="text-sm text-teal-600 font-semibold">QA Engineer</p><p class="text-xs text-slate-500 mt-2">"Ensuring our solution is reliable and trustworthy."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="https://placehold.co/200x200/e2e8f0/334155?text=LG" alt="Luis Garcia" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Luis Garcia</h3><p class="text-sm text-teal-600 font-semibold">Project Manager</p><p class="text-xs text-slate-500 mt-2">"Keeping our vision on track and our team aligned."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="https://placehold.co/200x200/e2e8f0/334155?text=AL" alt="Alberto Lopez" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Alberto Lopez</h3><p class="text-sm text-teal-600 font-semibold">Data Scientist</p><p class="text-xs text-slate-500 mt-2">"Finding insights in data to guide our product."</p></div>
+                        <div class="text-center p-4 bg-slate-50 rounded-lg"><img src="https://placehold.co/200x200/e2e8f0/334155?text=CP" alt="M. Carmen Pina" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-md"><h3 class="font-bold text-slate-800">Mari Carmen Pina</h3><p class="text-sm text-teal-600 font-semibold">Prompt Engineer</p><p class="text-xs text-slate-500 mt-2">"Mastering the art of conversation with AI models."</p></div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chatbot Section -->
+            <div id="chatbot" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-4 text-center">SAVIA Chatbot Demo</h2>
+                    <div class="max-w-2xl mx-auto">
+                        <div class="bg-slate-100 h-96 rounded-lg p-4 flex flex-col space-y-4 overflow-y-auto">
+                            <!-- Chat messages will appear here -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold flex-shrink-0">S</div>
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <p class="text-sm text-slate-700">Hello! I'm SAVIA, your AI financial coach. How can I help you today? You can ask me things like "What is APR?" or "How do I create a budget?".</p>
+                                </div>
+                            </div>
+                            <!-- Example user message -->
+                            <div class="flex items-start space-x-3 flex-row-reverse">
+                                <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center text-slate-600 font-bold flex-shrink-0">U</div>
+                                <div class="bg-blue-100 p-3 rounded-lg shadow-sm">
+                                    <p class="text-sm text-slate-700">What is the difference between a savings account and a deposit?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex">
+                            <input type="text" placeholder="Ask SAVIA a question..." class="w-full px-4 py-2 border border-slate-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+                            <button class="bg-teal-600 text-white font-bold px-6 py-2 rounded-r-lg hover:bg-teal-700 transition-colors">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Vision Section -->
+            <div id="future" class="tab-content">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-6">Future Vision: The Strategic Backlog</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-3"><h3 class="font-semibold text-lg text-slate-700 border-b-2 border-teal-200 pb-2">Core Features</h3><p class="text-sm text-slate-600">✓ Mortgage contract analyzer</p><p class="text-sm text-slate-600">✓ Multi-persona support (elderly, self-employed)</p><p class="text-sm text-slate-600">✓ Expansion to new markets (PT, UK, etc.)</p></div>
+                        <div class="space-y-3"><h3 class="font-semibold text-lg text-slate-700 border-b-2 border-teal-200 pb-2">User Experience</h3><p class="text-sm text-slate-600">✓ Stateful conversations with memory</p><p class="text-sm text-slate-600">✓ Proactive notifications and alerts</p><p class="text-sm text-slate-600">✓ Gamification to encourage learning</p></div>
+                        <div class="space-y-3"><h3 class="font-semibold text-lg text-slate-700 border-b-2 border-teal-200 pb-2">Trust & Compliance</h3><p class="text-sm text-slate-600">✓ "Human-in-the-Loop" supervision portal</p><p class="text-sm text-slate-600">✓ Automatic generation of technical documentation</p><p class="text-sm text-slate-600">✓ Formal and periodic bias audits</p></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        function changeTab(tabId) {
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('onclick').includes(`'${tabId}'`)) {
+                    tab.classList.add('active');
+                }
+            });
+            contents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+        }
+
+        const personasData = {
+            labels: [
+                'Vulnerability to Fraud',
+                'Digital Exclusion',
+                'Need for Basic Concepts',
+                'Susceptibility to Misinformation',
+                'Need for Immediacy',
+                'Mobile Preference'
+            ],
+            datasets: [{
+                label: 'The Elderly',
+                data: [9, 8, 6, 4, 2, 3],
+                fill: true,
+                backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                borderColor: 'rgb(13, 148, 136)',
+                pointBackgroundColor: 'rgb(13, 148, 136)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(13, 148, 136)'
+            }, {
+                label: 'Gen Z',
+                data: [3, 2, 8, 9, 9, 10],
+                fill: true,
+                backgroundColor: 'rgba(129, 140, 248, 0.2)',
+                borderColor: 'rgb(99, 102, 241)',
+                pointBackgroundColor: 'rgb(99, 102, 241)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(99, 102, 241)'
+            }]
+        };
+
+        const personasConfig = {
+            type: 'radar',
+            data: personasData,
+            options: {
+                maintainAspectRatio: false,
+                elements: {
+                    line: {
+                        borderWidth: 2
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10,
+                        pointLabels: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.r !== null) {
+                                    label += context.parsed.r;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            },
+        };
+
+        window.onload = function() {
+            changeTab('home');
+            const ctx = document.getElementById('personasChart');
+            if (ctx) {
+                 new Chart(ctx, personasConfig);
+            }
+        };
+    </script>
+
+</body>
+</html>

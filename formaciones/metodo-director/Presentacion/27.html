@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cierre: Reglas de Oro - IA Efectiva</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #181B24;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-frame {
+            width: 85%;
+            height: 75%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            background-color: #181B24;
+        }
+        .left-content {
+            flex: 40%;
+            padding: 60px 20px 60px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-content {
+            flex: 60%;
+            padding: 60px 60px 60px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title-proposed {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+        .title-objectives {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+        .left-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #A0A0A0;
+            max-width: 95%;
+        }
+        .objective-section {
+            margin-bottom: 25px;
+        }
+        .objective-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 8px;
+        }
+        .objective-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #A0A0A0;
+        }
+        .purple-divider {
+            width: 5px;
+            background-color: #B165FB;
+            margin: 0 20px;
+        }
+        .curve-decoration {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .top-right {
+            top: 0;
+            right: 0;
+        }
+        .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+        .company-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #A0A0A0;
+        }
+        .highlight {
+            color: #B165FB;
+            font-weight: 700;
+        }
+        .golden-circle {
+            display: flex;
+            margin-top: 20px;
+        }
+        .circle-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .circle-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #B165FB;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Curved line decorations -->
+<svg class="curve-decoration top-right" height="300" viewbox="0 0 400 300" width="400" xmlns="http://www.w3.org/2000/svg">
+<path d="M300,0 C325,25 350,50 375,75 C400,100 425,125 450,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M310,0 C335,25 360,50 385,75 C410,100 435,125 460,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M320,0 C345,25 370,50 395,75 C420,100 445,125 470,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M330,0 C355,25 380,50 405,75 C430,100 455,125 480,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M340,0 C365,25 390,50 415,75 C440,100 465,125 490,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M350,0 C375,25 400,50 425,75 C450,100 475,125 500,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M360,0 C385,25 410,50 435,75 C460,100 485,125 510,150" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+</svg>
+<svg class="curve-decoration bottom-right" height="300" viewbox="0 0 400 300" width="400" xmlns="http://www.w3.org/2000/svg">
+<path d="M250,150 C275,175 300,200 325,225 C350,250 375,275 400,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M260,150 C285,175 310,200 335,225 C360,250 385,275 410,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M270,150 C295,175 320,200 345,225 C370,250 395,275 420,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M280,150 C305,175 330,200 355,225 C380,250 405,275 430,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M290,150 C315,175 340,200 365,225 C390,250 415,275 440,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M300,150 C325,175 350,200 375,225 C400,250 425,275 450,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+<path d="M310,150 C335,175 360,200 385,225 C410,250 435,275 460,300" fill="none" opacity="0.7" stroke="#B165FB" stroke-width="1"></path>
+</svg>
+<div class="content-frame">
+<div class="left-content">
+<h1 class="title-proposed">REGLAS</h1>
+<h1 class="title-objectives">DE ORO</h1>
+<p class="left-description">
+                    Un buen Director de Orquesta IA no solo domina la técnica (el "Cómo") o conoce los instrumentos (el "Qué"). Es crucial nunca olvidar el "Por Qué": usar esta orquesta para ser más <span class="highlight">eficientes</span>, <span class="highlight">reducir riesgos</span> y <span class="highlight">crear valor</span>.
+                </p>
+<div class="golden-circle">
+<div class="circle-item">
+<div class="circle-icon">
+<i class="fas fa-question"></i>
+</div>
+<p>Por qué</p>
+</div>
+<div class="circle-item">
+<div class="circle-icon">
+<i class="fas fa-cog"></i>
+</div>
+<p>Cómo</p>
+</div>
+<div class="circle-item">
+<div class="circle-icon">
+<i class="fas fa-lightbulb"></i>
+</div>
+<p>Qué</p>
+</div>
+</div>
+</div>
+<div class="purple-divider"></div>
+<div class="right-content">
+<div class="objective-section">
+<h2 class="objective-title"><i class="fas fa-shield-alt mr-2"></i> Privacidad</h2>
+<p class="objective-text">
+                        "El director no comparte partituras confidenciales." No utilices datos sensibles del banco en tus prompts. La IA almacena conversaciones y podría exponer información confidencial. Siempre anonimiza los datos o usa ejemplos ficticios.
+                    </p>
+</div>
+<div class="objective-section">
+<h2 class="objective-title"><i class="fas fa-check-double mr-2"></i> Verificación</h2>
+<p class="objective-text">
+                        "La orquesta puede inventar notas. El director siempre verifica." Las IA generativas pueden "alucinar" - crear información falsa con apariencia de verdadera. Es fundamental validar datos, cifras y afirmaciones antes de usarlas en contextos profesionales.
+                    </p>
+</div>
+<div class="objective-section">
+<h2 class="objective-title"><i class="fas fa-sync-alt mr-2"></i> Reconexión Final</h2>
+<p class="objective-text">
+                        Al alinear nuestro <span class="highlight">Propósito (Por Qué)</span> con nuestra <span class="highlight">Metodología (Cómo)</span>, logramos los <span class="highlight">Resultados (Qué)</span> que realmente importan para el banco y sus clientes. La orquesta está lista, las partituras D.I.R.E.C.T.O.R. afinadas, y las técnicas avanzadas dominadas. ¡Ahora, a dirigir!
+                    </p>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligencia Artificial: De la Ficción a la Realidad</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in {
+            animation: slideIn 1s ease-out 0.5s both;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* AÑADIDO: Clase específica para la tarjeta interactiva */
+        .interactive-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote suave */
+        }
+        .interactive-card:hover {
+            transform: scale(1.1); /* Crece un 10% */
+            background-color: rgba(255, 255, 255, 0.25); /* Más blanco al pasar el ratón */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1); /* Sombra 3D */
+            z-index: 50; /* Se pone por encima de las otras */
+            cursor: default;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="w-full" style="width: 1280px; min-height: 720px; overflow: hidden;">
+        
+        <div class="gradient-bg min-h-full flex flex-col justify-center items-center relative py-12" style="min-height: 720px;">
+            
+            <div class="absolute top-10 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full floating-animation"></div>
+            <div class="absolute bottom-20 right-20 w-16 h-16 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: -2s;"></div>
+            <div class="absolute top-1/3 right-1/4 w-12 h-12 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: -4s;"></div>
+            
+            <div class="text-center z-10 max-w-5xl mx-auto px-8 fade-in">
+                
+                <div class="mb-6 floating-animation">
+                    <i class="fas fa-brain text-white text-6xl mb-4"></i>
+                </div>
+
+                <h1 class="text-6xl font-bold text-white mb-4 leading-tight shadow-sm">
+                    Inteligencia Artificial
+                </h1>
+                <h2 class="text-3xl font-light text-white mb-10 opacity-95">
+                    De la Ficción a la Realidad
+                </h2>
+
+                <p class="text-xl text-white mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed">
+                    Un viaje progresivo desde los fundamentos teóricos hasta la aplicación práctica
+                </p>
+
+                <div class="grid grid-cols-3 gap-8 mb-12 slide-in px-4">
+                    
+                    <div class="interactive-card bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-20">
+                        <div class="text-white mb-4">
+                            <i class="fas fa-lightbulb text-4xl text-yellow-300 drop-shadow-md"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-wide">Entiende</h3>
+                        <p class="text-white text-base font-medium leading-relaxed">
+                            Desmitificando la IA:<br>fundamentos y realidades
+                        </p>
+                    </div>
+
+                    <div class="interactive-card bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-20">
+                        <div class="text-white mb-4">
+                            <i class="fas fa-globe text-4xl text-blue-300 drop-shadow-md"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-wide">Comprende</h3>
+                        <p class="text-white text-base font-medium leading-relaxed">
+                            El contexto e impacto<br>en nuestro mundo
+                        </p>
+                    </div>
+
+                    <div class="interactive-card bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-20">
+                        <div class="text-white mb-4">
+                            <i class="fas fa-tools text-4xl text-green-300 drop-shadow-md"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-wide">Aprende</h3>
+                        <p class="text-white text-base font-medium leading-relaxed">
+                            Herramientas y<br>estrategias prácticas
+                        </p>
+                    </div>
+                </div>
+
+                <div class="slide-in mt-8">
+                    <p class="text-white text-lg opacity-80 font-light italic">
+                        <i class="fas fa-quote-left mr-2 text-sm"></i>
+                        "El futuro ya está aquí, solo necesitamos entenderlo y aprovecharlo"
+                        <i class="fas fa-quote-right ml-2 text-sm"></i>
+                    </p>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-white bg-opacity-20"></div>
+        </div>
+    </div>
+</body>
+</html>
