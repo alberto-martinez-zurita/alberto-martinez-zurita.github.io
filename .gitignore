@@ -18,3 +18,5 @@ travis.yml
 index.html
 README.md
 LICENSE
+doc/
+backup/
