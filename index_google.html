@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alberto Martínez Zurita - Principal AI Engineer & Enterprise Architect. Ganador del Google AI Hackathon (1º/4.4k). Especialista en IA Agéntica, arquitectura empresarial y sistemas críticos bancarios.">
+    <meta name="author" content="Alberto Martínez Zurita">
+    <meta name="keywords" content="AI Engineer, Enterprise Architect, Google AI Hackathon, Agentic AI, Deutsche Bank, GCP, LLMs, RAG, Microservicios, Chaos Engineering">
+
+    <link rel="preload" as="font" href="./assets/fonts/inter.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="image" href="./assets/profile-hero.webp" fetchpriority="high">
+    <link rel="stylesheet" href="./styles.css">
+
+    <link rel="alternate" hreflang="en" href="./index.html?lang=en">
+    <link rel="alternate" hreflang="es" href="./index.html">
+    <link rel="canonical" href="https://alberto-martinez-zurita.github.io/">
+
+    <title>Alberto Martínez Zurita | Principal AI Engineer & Enterprise Architect</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Alberto Martínez Zurita",
+      "jobTitle": "Principal AI Engineer & Enterprise Architect",
+      "description": "Senior Solutions Architect con más de 20 años de experiencia en Banca y Sistemas Críticos, actualmente liderando la adopción de IA Agéntica",
+      "url": "https://alberto-martinez-zurita.github.io/",
+      "image": "https://alberto-martinez-zurita.github.io/assets/profile-hero.webp",
+      "email": "albertomz@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Barcelona",
+        "addressCountry": "ES"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/alberto-martinez-zurita",
+        "https://github.com/alberto-martinez-zurita"
+      ],
+      "knowsLanguage": [
+        { "@type": "Language", "name": "Spanish", "alternateName": "es" },
+        { "@type": "Language", "name": "Catalan", "alternateName": "ca" },
+        { "@type": "Language", "name": "English", "alternateName": "en" }
+      ],
+      "award": "1st Place Winner - Google AI Agents Hackathon",
+      "mainEntityOfPage": {
+        "@type": "ScholarlyArticle",
+        "@id": "https://alberto-martinez-zurita.github.io/",
+        "headline": "Alberto Martínez Zurita: Principal AI Engineer & Enterprise Architect",
+        "author": { "@type": "Person", "name": "Alberto Martínez Zurita" }
+      }
+    }
+    </script>
+</head>
+<body itemscope itemtype="https://schema.org/ProfilePage">
+
+    <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Abrir menú">
+        <span class="hamburger-icon">☰</span>
+    </button>
+
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-profile">
+            <a href="#" class="profile-link">
+                <div class="profile-avatar">AM</div>
+                <span class="profile-name">
+                    <span class="lang-es">Mi Perfil</span>
+                    <span class="lang-en hidden">My Profile</span>
+                </span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="#summary" class="nav-link"><span class="lang-es">Resumen</span><span class="lang-en hidden">Summary</span></a></li>
+                <li><a href="#experience" class="nav-link"><span class="lang-es">Experiencia</span><span class="lang-en hidden">Experience</span></a></li>
+                <li><a href="#ai-milestones" class="nav-link"><span class="lang-es">Hitos IA</span><span class="lang-en hidden">AI Milestones</span></a></li>
+                <li><a href="#skills" class="nav-link"><span class="lang-es">Competencias</span><span class="lang-en hidden">Skills</span></a></li>
+                <li><a href="#education" class="nav-link"><span class="lang-es">Educación</span><span class="lang-en hidden">Education</span></a></li>
+                <li><a href="#contact" class="nav-link"><span class="lang-es">Contacto</span><span class="lang-en hidden">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-controls">
+            <div class="control-buttons">
+                <button id="lang-toggle" class="control-btn" aria-label="Toggle language" title="Language">
+                    <span class="lang-es">EN</span>
+                    <span class="lang-en hidden">ES</span>
+                </button>
+                <button id="theme-toggle" class="control-btn" aria-label="Toggle theme" title="Theme">
+                    <span class="icon-sun" aria-hidden="true">☀️</span>
+                    <span class="icon-moon hidden" aria-hidden="true">🌙</span>
+                </button>
+                <button id="pdf-export" class="control-btn" aria-label="Export to PDF" title="Download PDF">
+                    <span aria-hidden="true">🖨️</span>
+                </button>
+            </div>
+
+            <div class="social-share">
+                <button id="share-linkedin" class="share-btn" aria-label="Share on LinkedIn" title="LinkedIn">
+                    <span aria-hidden="true">🔗</span>
+                </button>
+                <button id="share-twitter" class="share-btn" aria-label="Share on X" title="X (Twitter)">
+                    <span aria-hidden="true">🐦</span>
+                </button>
+                <button id="copy-link" class="share-btn" aria-label="Copy link" title="Copy Link">
+                    <span aria-hidden="true">📋</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main role="main" itemscope itemtype="https://schema.org/Person" class="main-content">
+
+        <article class="cv-article">
+
+            <header class="cv-header">
+                <figure class="hero-figure">
+                    <img src="./assets/profile-hero.webp"
+                         alt="Alberto Martínez Zurita - Principal AI Engineer"
+                         width="1200"
+                         height="630"
+                         fetchpriority="high"
+                         decoding="async"
+                         itemprop="image"
+                         class="hero-image">
+                    <figcaption class="hero-caption">
+                        <span class="lang-es">Arquitecto de Soluciones con visión estratégica</span>
+                        <span class="lang-en hidden">Strategic Solutions Architect bridging Enterprise Reliability and Agentic AI Innovation</span>
+                    </figcaption>
+                </figure>
+
+                <div class="hero-content">
+                    <h1 itemprop="name" class="name-title">Alberto Martínez Zurita</h1>
+                    <p itemprop="jobTitle" class="job-title">
+                        <strong>Principal AI Engineer & Enterprise Architect</strong> | <strong>Google AI Hackathon Winner (1st/4.4k)</strong>
+                    </p>
+                    <p itemprop="description" class="tagline">
+                        <em class="lang-es">Arquitecto de Soluciones con visión estratégica, uniendo la fiabilidad bancaria con la innovación en IA Agéntica.</em>
+                        <em class="lang-en hidden">Strategic Solutions Architect bridging the gap between Enterprise Reliability and Agentic AI Innovation.</em>
+                    </p>
+
+                    <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" class="contact-address">
+                        <span itemprop="addressLocality">Barcelona</span>,
+                        <span itemprop="addressCountry"><span class="lang-es">España</span><span class="lang-en hidden">Spain</span></span> ·
+                        <a href="mailto:albertomz@gmail.com" itemprop="email">albertomz@gmail.com</a>
+                    </address>
+
+                    <ul class="social-links">
+                        <li><a href="https://linkedin.com/in/alberto-martinez-zurita" rel="external" itemprop="sameAs">LinkedIn</a></li>
+                        <li><a href="https://github.com/alberto-martinez-zurita" rel="external" itemprop="sameAs">GitHub</a></li>
+                        <li><a href="https://alberto-martinez-zurita.github.io/" rel="me" itemprop="url">Portfolio</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section id="summary" aria-labelledby="heading-resumen" class="cv-section">
+                <h2 id="heading-resumen" class="section-title">
+                    <span class="lang-es">Resumen Ejecutivo</span>
+                    <span class="lang-en hidden">Executive Summary</span>
+                </h2>
+
+                <div class="lang-es">
+                    <p>
+                        <dfn id="def-senior-solutions-architect">Senior Solutions Architect</dfn> con más de 20 años de experiencia en Banca y Sistemas Críticos, actualmente liderando la adopción de <dfn id="def-ia-agentica">IA Agéntica</dfn>.
+                    </p>
+                    <p>
+                        Mi perfil es híbrido: combino el rigor de la arquitectura empresarial (Java/Spring, Seguridad, Observabilidad) con la capacidad de ejecución de un ingeniero de IA moderno (Python, LLMs). No solo diseño diapositivas, construyo sistemas de producción resilientes y éticos.
+                    </p>
+                    <ul>
+                        <li><strong>Ganador Global:</strong> 1º Puesto en el <dfn id="def-google-ai-hackathon">Google Cloud AI Agents Hackathon</dfn> (Categoría Enterprise).</li>
+                        <li><strong>Innovador:</strong> Ideólogo de metodologías internas de <dfn id="def-salud-software">Salud del Software</dfn> y creador del framework estratégico <em>"Entiende, Comprende, Aprende"</em> para la adopción de IA.</li>
+                        <li><strong>Líder Técnico:</strong> Experiencia demostrable orquestando <dfn id="def-sistemas-multi-agente">sistemas multi-agente</dfn> y liderando iniciativas de <dfn id="def-ia-bien-social">IA para el Bien Social</dfn> (Inclusión Financiera).</li>
+                    </ul>
+                </div>
+
+                <div class="lang-en hidden">
+                    <p>
+                        <dfn id="def-senior-solutions-architect-en">Senior Solutions Architect</dfn> with 20+ years of experience in Banking and Critical Systems, currently pivoting to lead <dfn id="def-agentic-ai-en">Agentic AI</dfn> adoption.
+                    </p>
+                    <p>
+                        I combine the rigor of enterprise architecture (Java/Spring, Security, Observability) with the agility of modern AI engineering. I don't just design slides; I build production-ready, ethical AI systems.
+                    </p>
+                    <ul>
+                        <li><strong>Global Winner:</strong> 1st Place in Google Cloud AI Agents Hackathon (Enterprise Track).</li>
+                        <li><strong>Innovator:</strong> Ideator of internal <dfn id="def-software-health-en">Software Health Frameworks</dfn> and creator of the <em>"Understand, Comprehend, Learn"</em> strategic framework for AI adoption.</li>
+                        <li><strong>Tech Leader:</strong> Proven track record orchestrating <dfn id="def-multi-agent-systems-en">multi-agent systems</dfn> and leading <dfn id="def-ai-for-good-en">AI for Good</dfn> initiatives (Financial Inclusion).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="experience" aria-labelledby="heading-experiencia" class="cv-section">
+                <h2 id="heading-experiencia" class="section-title">
+                    <span class="lang-es">Experiencia Profesional</span>
+                    <span class="lang-en hidden">Professional Experience</span>
+                </h2>
+
+                <article itemscope itemtype="https://schema.org/WorkRole" class="work-role">
+                    <header class="work-header">
+                        <h3 itemprop="roleName" class="role-name">
+                            <span class="lang-es">Senior Solutions Architect (AVP)</span>
+                            <span class="lang-en hidden">Senior Solutions Architect (AVP)</span>
+                        </h3>
+                        <p class="company-info">
+                            <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">
+                                <span itemprop="name">Deutsche Bank</span>
+                            </span>
+                        </p>
+                        <p class="date-location">
+                            <time datetime="2020-03" itemprop="startDate"><span class="lang-es">Marzo 2020</span><span class="lang-en hidden">March 2020</span></time> –
+                            <span itemprop="endDate"><span class="lang-es">Actualidad</span><span class="lang-en hidden">Present</span></span> |
+                            <span itemprop="workLocation">Barcelona</span>
+                        </p>
+                    </header>
+                    <p itemprop="description" class="work-description">
+                        <em class="lang-es">Liderazgo técnico en la definición de estándares globales, transformación cloud y gobernanza arquitectónica.</em>
+                        <em class="lang-en hidden">Technical leadership in global standards definition, cloud transformation, and architectural governance.</em>
+                    </p>
+                    <ul class="work-achievements lang-es">
+                        <li><strong>Product Owner - Salud del Software:</strong> Lideré framework interno de <dfn id="def-deuda-tecnica">deuda técnica</dfn> y métricas de calidad. Equipo de 8 ingenieros transformando datos de Sonar/SRE en insights accionables.</li>
+                        <li><strong>Arquitectura Cloud (GCP):</strong> Asesoría estratégica para soluciones <dfn id="def-google-cloud">Google Cloud</dfn> con estándares bancarios. Modernización de monolitos a <dfn id="def-microservicios">microservicios</dfn> en Cloud Run/GKE.</li>
+                        <li><strong>AI Evangelism:</strong> Creé programa <em>"IA: Entiende, Comprende, Aprende"</em> y taller <em>"Método DIRECTOR"</em>. <strong>+350 empleados formados</strong> en IA Generativa.</li>
+                    </ul>
+                    <ul class="work-achievements lang-en hidden">
+                        <li><strong>Product Owner - Software Health:</strong> Led internal <dfn id="def-technical-debt-en">technical debt</dfn> framework and quality metrics. Team of 8 engineers transforming Sonar/SRE data into actionable insights.</li>
+                        <li><strong>Cloud Architecture (GCP):</strong> Strategic advisory for Google Cloud solutions. Modernized monoliths to microservices on Cloud Run/GKE.</li>
+                        <li><strong>AI Evangelism:</strong> Created <em>"AI: Understand, Comprehend, Learn"</em> program. <strong>+350 employees trained</strong>.</li>
+                    </ul>
+                </article>
+
+                <article itemscope itemtype="https://schema.org/WorkRole" class="work-role">
+                    <header class="work-header">
+                        <h3 itemprop="roleName" class="role-name">
+                            <span class="lang-es">Enterprise Architect & API Strategy Lead</span>
+                            <span class="lang-en hidden">Enterprise Architect & API Strategy Lead</span>
+                        </h3>
+                        <p class="company-info">
+                            <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">
+                                <span itemprop="name">Banc Sabadell</span>
+                            </span>
+                        </p>
+                        <p class="date-location">
+                            <time datetime="2017-01" itemprop="startDate">2017</time> – <time datetime="2020-03" itemprop="endDate">2020</time>
+                        </p>
+                    </header>
+                    <ul class="work-achievements lang-es">
+                        <li><strong>PSD2 Principal Architect:</strong> Arquitectura Open Banking para TSB Bank (UK).</li>
+                        <li><strong>API Management:</strong> Implantación CA Layer7, OAuth2 y gobernanza corporativa.</li>
+                    </ul>
+                    <ul class="work-achievements lang-en hidden">
+                        <li><strong>PSD2 Principal Architect:</strong> Open Banking architecture for TSB Bank (UK).</li>
+                        <li><strong>API Management:</strong> CA Layer7 implementation, OAuth2, and corporate governance.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="ai-milestones" aria-labelledby="heading-hitos" class="cv-section">
+                <h2 id="heading-hitos" class="section-title">
+                    <span class="lang-es">Hitos en IA</span>
+                    <span class="lang-en hidden">Elite AI Milestones</span>
+                </h2>
+
+                <article itemscope itemtype="https://schema.org/CreativeWork" class="milestone-article">
+                    <header class="milestone-header">
+                        <h3 itemprop="name" class="milestone-title">🥇 1st Place - Google AI Agents Hackathon</h3>
+                        <p class="milestone-date">Global Competition (4,477 projects)</p>
+                    </header>
+                    <p class="milestone-project">
+                        <a href="https://github.com/alberto-martinez-zurita/chaos-playbook-engine" rel="external">Chaos Playbook Engine ($AI^2$)</a>
+                    </p>
+                    <div class="lang-es">
+                        <p class="milestone-desc">Diseñé framework de Chaos Engineering para agentes. Inyección de fallos para entrenar recuperación automática. <strong>60% mejora en fiabilidad</strong>.</p>
+                        <p class="tech-stack"><strong>Stack:</strong> Google ADK, Vertex AI, Docker, Poetry</p>
+                    </div>
+                    <div class="lang-en hidden">
+                        <p class="milestone-desc">Engineered Chaos Engineering framework for agents. Systematic fault injection. <strong>60% reliability increase</strong>.</p>
+                        <p class="tech-stack"><strong>Stack:</strong> Google ADK, Vertex AI, Docker, Poetry</p>
+                    </div>
+                </article>
+
+                <article class="opensource-projects">
+                    <h3 class="subsection-title">
+                        <span class="lang-es">Open Source Projects</span>
+                        <span class="lang-en hidden">Open Source Projects</span>
+                    </h3>
+                    <ul class="projects-list lang-es">
+                        <li><strong>SAVIA:</strong> AI Lead en Hackathon Inclusión Financiera. Arquitectura RAG segura y EU AI Act compliance.</li>
+                        <li><strong>Agentic Swarm:</strong> Orquestador local de agentes para desarrollo autónomo (CEP).</li>
+                        <li><strong>Z-AI-Video-Generation:</strong> Pipeline local de vídeo con GreenOps.</li>
+                    </ul>
+                    <ul class="projects-list lang-en hidden">
+                        <li><strong>SAVIA:</strong> AI Lead for Financial Inclusion. Secure RAG architecture & EU AI Act compliance.</li>
+                        <li><strong>Agentic Swarm:</strong> Local orchestrator for autonomous dev agents.</li>
+                        <li><strong>Z-AI-Video-Generation:</strong> Local video pipeline using GreenOps principles.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="skills" aria-labelledby="heading-competencias" class="cv-section">
+                <h2 id="heading-competencias" class="section-title">
+                    <span class="lang-es">Competencias</span>
+                    <span class="lang-en hidden">Technical Skills</span>
+                </h2>
+                
+                <article class="competence-category">
+                    <h3 class="category-title">AI & LLMs</h3>
+                    <dl class="competence-list">
+                        <dt>Stack:</dt><dd>Google ADK, LangChain, CrewAI, AutoGen</dd>
+                        <dt>Models:</dt><dd>Gemini, Claude, GPT</dd>
+                        <dt>Methods:</dt><dd>RAG, CoT, ReAct, Vibecoding</dd>
+                    </dl>
+                </article>
+                <article class="competence-category">
+                    <h3 class="category-title">Cloud & Enterprise</h3>
+                    <dl class="competence-list">
+                        <dt>Core:</dt><dd>Java (Spring), Microservices, Event-Driven</dd>
+                        <dt>Ops:</dt><dd>Kubernetes, Docker, ELK, Grafana</dd>
+                        <dt>Security:</dt><dd>OAuth2, OIDC, API Gateways</dd>
+                    </dl>
+                </article>
+                <article class="competence-category">
+                    <h3 class="category-title">Full Stack</h3>
+                    <dl class="competence-list">
+                        <dt>Web:</dt><dd>Python (FastAPI), React/Angular, Tailwind</dd>
+                        <dt>Data:</dt><dd>PostgreSQL, Oracle, Vector DBs</dd>
+                    </dl>
+                </article>
+            </section>
+
+            <section id="education" aria-labelledby="heading-educacion" class="cv-section">
+                <h2 id="heading-educacion" class="section-title">
+                    <span class="lang-es">Educación</span>
+                    <span class="lang-en hidden">Education</span>
+                </h2>
+                <article class="education-item">
+                    <h3 class="education-title">Ingeniero Superior en Informática</h3>
+                    <p class="institution">UPC - Universidad Politécnica de Cataluña</p>
+                </article>
+
+                <article class="kaggle-featured">
+                    <div class="featured-badge">🏆</div>
+                    <h3 class="featured-title">Kaggle Winner</h3>
+                    <p class="featured-desc">5-Day AI Agents Intensive (Google)</p>
+                </article>
+
+                <article class="certifications-compact">
+                    <h3 class="subsection-title">Certs</h3>
+                    <ul class="cert-list-compact">
+                        <li>GCP Professional Architect</li>
+                        <li>Google Cloud Skills Boost</li>
+                        <li>AI Engineer Agentic Track</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="contact" aria-labelledby="heading-contacto" class="cv-section">
+                <h2 id="heading-contacto" class="section-title">
+                    <span class="lang-es">Contacto</span>
+                    <span class="lang-en hidden">Contact</span>
+                </h2>
+                <address class="contact-info">
+                    <ul class="contact-list">
+                        <li><a href="mailto:albertomz@gmail.com">albertomz@gmail.com</a></li>
+                        <li><a href="https://linkedin.com/in/alberto-martinez-zurita">LinkedIn</a></li>
+                        <li><a href="https://github.com/alberto-martinez-zurita">GitHub</a></li>
+                    </ul>
+                </address>
+            </section>
+
+        </article>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>

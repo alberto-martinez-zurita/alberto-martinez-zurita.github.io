@@ -1,0 +1,192 @@
+/* ========================================
+   STYLES.CSS - V6.0 (Final - Clean Typography & Print)
+   ======================================== */
+
+/* FONTS: Zero CLS Strategy */
+@font-face { font-family: 'Inter'; src: url('./assets/fonts/inter.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('./assets/fonts/inter-bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+/* Fuente Fallback ajustada métricamente para coincidir con Inter */
+@font-face { font-family: 'Inter-Fallback'; src: local('Arial'); size-adjust: 107%; ascent-override: 90%; descent-override: 22%; }
+
+:root {
+  /* COLORS: Semantic Tokens */
+  --bg-surface: #ffffff;
+  --bg-card: #f9fafb; /* Lighter card background */
+  --bg-card-hover: #f3f4f6;
+  --text-primary: #111827; /* Near black for readability */
+  --text-secondary: #4b5563; 
+  --text-tertiary: #9ca3af;
+  --accent-blue: #2563eb;
+  --border-subtle: #e5e7eb;
+
+  /* TYPOGRAPHY SCALE (Compact Dashboard Style) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;       /* 16px base */
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  
+  --space-md: 1.5rem;
+  --space-xl: 3rem;
+  --radius-lg: 8px; /* Slightly squarer for tech feel */
+  --transition-base: 0.2s ease;
+}
+
+[data-theme="dark"] {
+  --bg-surface: #0a0a0a;
+  --bg-card: #171717;
+  --bg-card-hover: #262626;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border-subtle: #404040;
+}
+
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: 'Inter', 'Inter-Fallback', sans-serif; 
+    font-size: var(--text-base); 
+    line-height: 1.5; 
+    color: var(--text-primary); 
+    background: var(--bg-surface); 
+}
+
+/* UTILS */
+.hidden { display: none !important; }
+[data-lang="en"] .lang-es { display: none; }
+[data-lang="en"] .lang-en { display: inline; }
+
+/* ========================================
+   MOBILE TOGGLE BUTTON
+   ======================================== */
+.mobile-toggle {
+    position: fixed; top: 1rem; right: 1rem; z-index: 2000;
+    background: var(--bg-card); border: 1px solid var(--border-subtle);
+    border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 1.5rem;
+    cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    display: none; 
+}
+[data-theme="dark"] .mobile-toggle { color: white; }
+@media (max-width: 1024px) { .mobile-toggle { display: block; } }
+
+/* ========================================
+   SIDEBAR (MENU IMPROVED)
+   ======================================== */
+.sidebar {
+  position: fixed; left: 0; top: 0; width: 280px; height: 100vh; z-index: 1000;
+  background: var(--bg-surface); border-right: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column; padding: 2rem 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.active { transform: translateX(0); }
+}
+
+.profile-avatar {
+    width: 48px; height: 48px; border-radius: 50%; 
+    background: var(--accent-blue); color: white; 
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; margin-right: 12px;
+}
+.profile-link { display: flex; align-items: center; padding: 0 1.5rem; margin-bottom: 2rem; text-decoration: none; color: var(--text-primary); }
+
+/* LARGER & BOLDER MENUS */
+.nav-link {
+    display: block; padding: 0.8rem 2rem;
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 1.1rem; /* Bigger for sidebar */
+    font-weight: 600;  
+    transition: all 0.2s;
+}
+.nav-link:hover { color: var(--accent-blue); background: var(--bg-card-hover); }
+
+.sidebar-controls { margin-top: auto; padding: 0 2rem; }
+.control-buttons { display: flex; gap: 10px; margin-bottom: 1rem; }
+.control-btn { flex: 1; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--bg-card); cursor: pointer; color: var(--text-primary); font-size: 1.2rem; }
+.social-share { display: flex; gap: 10px; justify-content: center; }
+.share-btn { border: none; background: none; cursor: pointer; font-size: 1.2rem; opacity: 0.7; color: var(--text-secondary); }
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+.main-content { margin-left: 280px; padding: 4rem; min-height: 100vh; }
+@media (max-width: 1024px) { .main-content { margin-left: 0; padding: 2rem 1rem; } }
+
+.cv-article { max-width: 1200px; margin: 0 auto; display: grid; gap: 3rem; }
+
+/* HERO */
+.cv-header { display: grid; gap: 2rem; grid-template-columns: 350px 1fr; align-items: center; }
+@media (max-width: 768px) { .cv-header { grid-template-columns: 1fr; } }
+.hero-image { width: 100%; border-radius: 12px; aspect-ratio: 16/9; object-fit: cover; }
+.name-title { font-size: var(--text-3xl); font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.job-title { font-size: var(--text-lg); color: var(--accent-blue); font-weight: 600; margin-bottom: 1rem; }
+
+/* SECTIONS */
+.section-title { 
+    grid-column: 1 / -1; 
+    font-size: var(--text-2xl); 
+    font-weight: 700; 
+    border-bottom: 2px solid var(--border-subtle); 
+    padding-bottom: 0.5rem; 
+    margin-bottom: 1.5rem; 
+}
+
+/* CARDS (More compact) */
+.work-role, .milestone-article, .education-item, .competence-category {
+    background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;
+    transition: transform 0.2s;
+}
+.work-role:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
+
+.role-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.work-description { font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-secondary); }
+.work-achievements li { font-size: 0.925rem; margin-bottom: 0.5rem; padding-left: 1.2rem; position: relative; }
+.work-achievements li::before { content: "›"; position: absolute; left: 0; color: var(--accent-blue); font-weight: bold; font-size: 1.2rem; line-height: 1; }
+
+/* GRIDS */
+#experience { display: grid; gap: 1rem; }
+#ai-milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+#skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+#education { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+
+/* KAGGLE CARD */
+.kaggle-featured { background: linear-gradient(135deg, #FFF8E1, #FFECB3); border: 1px solid #FCD34D; text-align: center; }
+.featured-badge { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+[data-theme="dark"] .kaggle-featured { background: linear-gradient(135deg, #451a03, #78350f); border-color: #d97706; }
+
+/* ========================================
+   PDF EXPORT OPTIMIZATION (@media print)
+   This is what makes the PDF functionality "Native" and clean.
+   ======================================== */
+@media print {
+    /* Hide Navigation & UI */
+    .sidebar, .mobile-toggle, .social-share, .control-buttons { display: none !important; }
+    
+    /* Layout Reset for A4 */
+    .main-content { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    .cv-article { display: block !important; gap: 1rem; }
+    body { font-size: 10pt; background: white !important; color: black !important; }
+
+    /* Card Styling for Print (Ink saving) */
+    .work-role, .milestone-article, .education-item, .competence-category {
+        break-inside: avoid; /* Don't cut cards in half */
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        margin-bottom: 1rem;
+        background: white !important;
+        padding: 1rem !important;
+    }
+
+    /* Links clean up */
+    a { text-decoration: none; color: black !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #666; }
+
+    /* Hero adjustments */
+    .cv-header { display: block; border: none; padding: 0; margin-bottom: 2rem; }
+    .hero-image { display: none; } /* Optional: Hide big image to save ink/space */
+    .name-title { font-size: 24pt; color: black; margin-bottom: 0.5rem; }
+}
