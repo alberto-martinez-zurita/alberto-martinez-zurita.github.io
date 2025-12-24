@@ -19,8 +19,10 @@ const PORTFOLIO_TITLE = 'Alberto Martínez Zurita - Principal AI Engineer & Goog
 // INITIALIZATION (Before Paint - No Flicker)
 // ========================================
 (function initBeforePaint() {
-  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) || 'es';
-  applyLanguage(savedLang);
+  // Language is determined by URL path, not localStorage
+  // Just ensure the HTML lang attribute matches data-lang
+  const currentLang = html.getAttribute('data-lang') || 'en';
+  applyLanguage(currentLang);
 
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
   applyTheme(savedTheme);
@@ -42,10 +44,34 @@ document.addEventListener('click', (event) => {
 
   // Guard Clause: Handle language toggle
   if (targetId === 'lang-toggle') {
-    const currentLang = html.getAttribute('data-lang');
-    const newLang = currentLang === 'es' ? 'en' : 'es';
-    applyLanguage(newLang);
-    localStorage.setItem(LANG_STORAGE_KEY, newLang);
+    const currentPath = window.location.pathname;
+    const currentOrigin = window.location.origin;
+
+    // Determine target URL based on current location
+    if (currentPath.includes('/es/')) {
+      // Currently in Spanish version, navigate to English (root)
+      // Check if we're on GitHub Pages or local development
+      if (currentOrigin.includes('github.io')) {
+        window.location.href = '/alberto-martinez-zurita/';
+      } else if (currentPath.includes('index.html')) {
+        // Local file system with explicit index.html
+        window.location.href = '../index.html';
+      } else {
+        // Standard web server
+        window.location.href = '/';
+      }
+    } else {
+      // Currently in English version, navigate to Spanish
+      if (currentOrigin.includes('github.io')) {
+        window.location.href = '/alberto-martinez-zurita/es/';
+      } else if (currentPath.includes('index.html')) {
+        // Local file system with explicit index.html
+        window.location.href = 'es/index.html';
+      } else {
+        // Standard web server
+        window.location.href = '/es/';
+      }
+    }
     return;
   }
 

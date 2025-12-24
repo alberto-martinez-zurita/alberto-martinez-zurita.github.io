@@ -589,7 +589,7 @@ p {
    11. RESUMEN - FULL WIDTH CARD
    ======================================== */
 
-#resumen-ejecutivo {
+#executive-summary {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
@@ -597,24 +597,24 @@ p {
   box-shadow: var(--shadow-md);
 }
 
-#resumen-ejecutivo p,
-#resumen-ejecutivo ul {
+#executive-summary p,
+#executive-summary ul {
   color: var(--text-secondary);
   line-height: var(--leading-relaxed);
 }
 
-#resumen-ejecutivo ul {
+#executive-summary ul {
   list-style: none;
   padding-left: var(--space-md);
 }
 
-#resumen-ejecutivo li {
+#executive-summary li {
   position: relative;
   padding-left: var(--space-md);
   margin-bottom: var(--space-sm);
 }
 
-#resumen-ejecutivo li::before {
+#executive-summary li::before {
   content: "▸";
   position: absolute;
   left: 0;
@@ -729,7 +729,7 @@ p {
    ======================================== */
 
 @media (min-width: 1024px) {
-  #hitos-ia {
+  #milestones-ia {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -853,17 +853,17 @@ p {
    ======================================== */
 
 @media (min-width: 768px) {
-  #competencias {
+  #skills {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  #competencias {
+  #skills {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  #competencias .section-title {
+  #skills .section-title {
     grid-column: 1 / -1;
   }
 }
@@ -911,13 +911,13 @@ p {
    ======================================== */
 
 @media (min-width: 768px) {
-  #educacion {
+  #qualifications {
     grid-template-columns: 1fr 1.5fr;
   }
 }
 
 @media (min-width: 1024px) {
-  #educacion {
+  #qualifications {
     grid-template-columns: 1fr 1.5fr;
   }
 }
