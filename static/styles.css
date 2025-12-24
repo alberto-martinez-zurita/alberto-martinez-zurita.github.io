@@ -682,6 +682,7 @@ p {
 .date-location {
   font-size: var(--text-base);
   color: var(--text-tertiary);
+  white-space: nowrap;
 }
 
 .work-description {
@@ -1096,7 +1097,7 @@ p {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-md);
   text-align: center;
 }
 
@@ -1105,7 +1106,7 @@ p {
   flex-wrap: wrap;
   gap: var(--space-sm);
   list-style: none;
-  justify-content: left;
+  justify-content: center;
 /*  margin-top: var(--space-lg);*/
 }
 
@@ -1113,7 +1114,7 @@ p {
   color: var(--accent-blue);
   font-weight: 500;
   text-decoration: none;
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--space-xs);
   border: 1px solid var(--accent-blue);
   border-radius: 100px;
   font-size: var(--text-sm);
@@ -1151,15 +1152,16 @@ p {
 dfn {
   font-style: normal;
   font-weight: 600;
-  color: var(--accent-blue);
-  border-bottom: 1px dotted var(--accent-blue);
+  color: inherit;
+  border-bottom: 1px dotted var(--text-tertiary);
   cursor: help;
   transition: all var(--transition-base);
 }
 
 dfn:hover {
   background-color: var(--accent-blue-subtle);
-  border-bottom-color: transparent;
+  border-bottom-color: var(--accent-blue);
+  color: var(--accent-blue);
 }
 
 /* ========================================
