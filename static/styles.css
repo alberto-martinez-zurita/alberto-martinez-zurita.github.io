@@ -1114,7 +1114,7 @@ p {
   color: var(--accent-blue);
   font-weight: 500;
   text-decoration: none;
-  padding: var(--space-xs) var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
   border: 1px solid var(--accent-blue);
   border-radius: 100px;
   font-size: var(--text-sm);
